@@ -11,20 +11,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Launcher.lua" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Workflow/Launcher.lua">
+      <file leaf-file-name="Main.lua" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Workflow/Main.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+            <state>
+              <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Player.lua" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/ConfigData/Player.lua">
+      <file leaf-file-name="Launcher.lua" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Workflow/Launcher.lua">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+            <state relative-caret-position="76">
+              <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -43,8 +43,9 @@
       <list>
         <option value="$PROJECT_DIR$/test.lua" />
         <option value="$PROJECT_DIR$/test/test.lua" />
-        <option value="$PROJECT_DIR$/Workflow/Launcher.lua" />
         <option value="$PROJECT_DIR$/Workflow/1.lua" />
+        <option value="$PROJECT_DIR$/Workflow/Main.lua" />
+        <option value="$PROJECT_DIR$/Workflow/Launcher.lua" />
       </list>
     </option>
   </component>
@@ -59,7 +60,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="ProjectPane">
@@ -72,17 +72,13 @@
             <path>
               <item name="Lua" type="b2602c69:ProjectViewProjectNode" />
               <item name="Lua" type="462c0819:PsiDirectoryNode" />
-              <item name="ConfigData" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Lua" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Lua" type="462c0819:PsiDirectoryNode" />
               <item name="Workflow" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -174,7 +170,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20685509" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.21166566" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -194,10 +190,41 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="11" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="24" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/Workflow/Main.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Workflow/Launcher.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="133">
+          <caret line="7" column="44" lean-forward="true" selection-start-line="7" selection-start-column="44" selection-end-line="7" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Workflow/Launcher.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ConfigData/Player.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Workflow/Launcher.lua">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -254,17 +281,24 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/Workflow/1.lua" />
-    <entry file="file://$PROJECT_DIR$/Workflow/Launcher.lua">
+    <entry file="file://$PROJECT_DIR$/ConfigData/Player.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="48" selection-start-line="15" selection-start-column="48" selection-end-line="15" selection-end-column="48" />
+        <state relative-caret-position="190">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ConfigData/Player.lua">
+    <entry file="file://$PROJECT_DIR$/Workflow/Main.lua">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+        <state>
+          <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Workflow/Launcher.lua">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="21" lean-forward="true" selection-start-line="4" selection-start-column="21" selection-end-line="4" selection-end-column="21" />
         </state>
       </provider>
     </entry>

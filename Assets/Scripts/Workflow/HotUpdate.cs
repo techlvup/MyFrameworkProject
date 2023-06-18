@@ -7,20 +7,28 @@ using UnityEngine.Networking;
 
 public class HotUpdate : MonoBehaviour
 {
-    private string m_catalogueFileWebURL;
-    private string m_catalogueFileLocalURL;
-    
+    private Launcher m_launcher;
     private int m_nowDownloadNum;
     private int m_needDownloadNum;
+    private string m_catalogueFileWebURL;
+    private string m_catalogueFileLocalURL;
+    private GameLoadingPanel m_GameLoadingPanel;
+    private float m_time;
+
+
+
 
     private void Awake()
     {
+        m_launcher = gameObject.GetComponent<Launcher>();
+
         m_nowDownloadNum = 0;
         m_needDownloadNum = -1;
 
+        m_time = 0;
+
 #if UNITY_EDITOR
-        m_nowDownloadNum = 0;
-        m_needDownloadNum = 0;
+        m_needDownloadNum = 3;
 
 #elif UNITY_STANDALONE_WIN
         m_catalogueFileWebURL = "http://MyFrameworkProject/HotUpdateAssetBundles/Windows/CatalogueFile.txt";
@@ -42,20 +50,52 @@ public class HotUpdate : MonoBehaviour
 
     private void Update()
     {
-        if(m_needDownloadNum == m_nowDownloadNum)
+        if(m_GameLoadingPanel != null)
         {
-            m_nowDownloadNum = 0;
-            m_needDownloadNum = -1;
+            bool isEnd = false;
 
-            Launcher launcher = gameObject.GetComponent<Launcher>();
+#if UNITY_EDITOR
+            m_time = m_time + Time.deltaTime;
 
-            launcher.StartWorkflow();
+            m_GameLoadingPanel.SetProgressSlider(m_time / m_needDownloadNum);
+
+            isEnd = m_time >= m_needDownloadNum;
+
+#else
+            m_GameLoadingPanel.SetProgressSlider(m_nowDownloadNum * 1.0f / m_needDownloadNum);
+
+            isEnd = m_nowDownloadNum >= m_needDownloadNum;
+#endif
+
+            if (isEnd)
+            {
+                m_time = 0;
+
+                m_nowDownloadNum = 0;
+
+                m_needDownloadNum = -1;
+
+                m_launcher.PlayGame();
+
+                Destroy(m_GameLoadingPanel.gameObject);
+            }
         }
     }
 
+
+
     public void StartHotUpdate()
     {
-        StartCoroutine(DownloadCatalogueFile());
+        GameObject GameLoadingPanel =  LuaCallCS.CreateGameObject("UI/GameLoadingPanel", "GameLoadingPanel");
+
+        if (GameLoadingPanel != null)
+        {
+            m_GameLoadingPanel = GameLoadingPanel.GetComponent<GameLoadingPanel>();
+
+#if !UNITY_EDITOR
+            StartCoroutine(DownloadCatalogueFile());
+#endif
+        }
     }
 
     private IEnumerator DownloadCatalogueFile()
@@ -87,11 +127,11 @@ public class HotUpdate : MonoBehaviour
                             sw.Write(downloadCatalogueText);
 
                             string[] filePath = downloadCatalogueText.Split('|', '\n');
-                            
-                            m_needDownloadNum = filePath.Length / 2;
 
-                            if (m_needDownloadNum > 0)
+                            if (filePath.Length > 0)
                             {
+                                m_needDownloadNum = filePath.Length / 2;
+
                                 for (int i = 0; i < filePath.Length; i++)
                                 {
                                     if (i % 2 == 0)

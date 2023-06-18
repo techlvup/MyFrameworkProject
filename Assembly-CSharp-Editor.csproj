@@ -357,11 +357,50 @@
  <Reference Include="UnityEditor.WindowsStandalone.Extensions">
  <HintPath>D:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="DemiLib">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DemiLib/Core/DemiLib.dll</HintPath>
+ </Reference>
+ <Reference Include="DemiEditor">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DemiLib/Core/Editor/DemiEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTween/DOTween.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween43">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTween/DOTween43.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween46">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTween/DOTween46.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTween50">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTween/DOTween50.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenEditor">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTween/Editor/DOTweenEditor.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenPro">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTweenPro/DOTweenPro.dll</HintPath>
+ </Reference>
+ <Reference Include="DOTweenProEditor">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTweenPro/Editor/DOTweenProEditor.dll</HintPath>
+ </Reference>
  <Reference Include="CString">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/CString.dll</HintPath>
  </Reference>
  <Reference Include="Debugger">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/Debugger.dll</HintPath>
+ </Reference>
+ <Reference Include="Excel">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/Excel.dll</HintPath>
+ </Reference>
+ <Reference Include="ICSharpCode.SharpZipLib">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
+ </Reference>
+ <Reference Include="LitJson">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/LitJson.dll</HintPath>
+ </Reference>
+ <Reference Include="zxing.unity">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/zxing.unity.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -377,45 +416,6 @@
  </Reference>
  <Reference Include="UnityEditor.Purchasing">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
- </Reference>
- <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
- </Reference>
- <Reference Include="Excel">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/Excel.dll</HintPath>
- </Reference>
- <Reference Include="zxing.unity">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/zxing.unity.dll</HintPath>
- </Reference>
- <Reference Include="LitJson">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/LitJson.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenEditor">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTween/Editor/DOTweenEditor.dll</HintPath>
- </Reference>
- <Reference Include="DOTween46">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTween/DOTween46.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenProEditor">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTweenPro/Editor/DOTweenProEditor.dll</HintPath>
- </Reference>
- <Reference Include="DOTween50">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTween/DOTween50.dll</HintPath>
- </Reference>
- <Reference Include="DemiLib">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DemiLib/Core/DemiLib.dll</HintPath>
- </Reference>
- <Reference Include="DemiEditor">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DemiLib/Core/Editor/DemiEditor.dll</HintPath>
- </Reference>
- <Reference Include="DOTween43">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTween/DOTween43.dll</HintPath>
- </Reference>
- <Reference Include="DOTween">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTween/DOTween.dll</HintPath>
- </Reference>
- <Reference Include="DOTweenPro">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTweenPro/DOTweenPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>D:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

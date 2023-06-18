@@ -39,7 +39,7 @@ public static partial class LuaCallCS
         return null;
     }
 
-    public static GameObject CreateGameObject(string prefabPath, string name, UnityEngine.Object parent)
+    public static GameObject CreateGameObject(string prefabPath, string name, UnityEngine.Object parent = null)
     {
         GameObject gameObject = null;
         Transform parentTrans = null;
@@ -166,5 +166,13 @@ public static partial class LuaCallCS
         }
 
         return go;
+    }
+
+    public static void SetPlayGameFunc(LuaFunction playGameFunc)
+    {
+        if (LuaManager.m_playGameFunc == null)
+        {
+            LuaManager.m_playGameFunc = playGameFunc;
+        }
     }
 }
