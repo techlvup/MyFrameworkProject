@@ -1,62 +1,20 @@
-﻿using UnityEngine;
+﻿using Excel;
+using UnityEngine;
 using UnityEditor;
+using System.Collections.Generic;
+using System.Data;
 using System.Text;
 using System.IO;
+using System.IO.Compression;
+using Zstandard.Net;
 
-public class ExcelToolPanel : EditorWindow
+public class ExcelToolPanel
 {
-    private static ExcelToolPanel currWindow; //当前编辑器窗口实例
-
-    private static string configDataPath; //项目根路径	
-
-    private static readonly string[] formatOption = new string[] { "Lua" }; //输出格式选项
-
-    private static int indexOfFormat = 0; //输出格式索引
-
-    private static readonly string[] encodingOption = new string[] { "UTF-8", "GB2312" }; //编码格式选项
-
-    private static int indexOfEncoding = 0; //编码索引
-
-
-
-    [MenuItem("DragonGodTool/Excel表导出工具")]
-    public static void ShowExcelConverTool()
+    [MenuItem("DragonGodTool/导出Excel表的配置数据")]
+    public static void ExportExcelDataToLuaTableString()
     {
-        configDataPath = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("/") + 1) + "ConfigData";
+        string configDataPath = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("/") + 1) + "ConfigData";
 
-        currWindow = GetWindow<ExcelToolPanel>();
-
-        currWindow.Show();
-    }
-
-    private void OnGUI()
-    {
-        GUILayout.BeginHorizontal();
-
-        EditorGUILayout.LabelField("请选择格式类型:", GUILayout.Width(85));
-
-        indexOfFormat = EditorGUILayout.Popup(indexOfFormat, formatOption, GUILayout.Width(125));//绘制下拉选项
-
-        GUILayout.EndHorizontal();
-
-        GUILayout.BeginHorizontal();
-
-        EditorGUILayout.LabelField("请选择编码类型:", GUILayout.Width(85));
-
-        indexOfEncoding = EditorGUILayout.Popup(indexOfEncoding, encodingOption, GUILayout.Width(125));
-
-        GUILayout.EndHorizontal();
-
-        if (GUILayout.Button("转换"))
-        {
-            Convert();
-        }
-    }
-
-
-
-    private static void Convert()
-    {
         DirectoryInfo directoryInfo = new DirectoryInfo(configDataPath);
 
         FileInfo[] fileInfos = directoryInfo.GetFiles();
@@ -65,32 +23,100 @@ public class ExcelToolPanel : EditorWindow
         {
             string excelPath = item.FullName.Replace("\\", "/");
 
-            //构造Excel工具类
-            ExcelUtility excelUtility = new ExcelUtility(excelPath);
-
-            //判断编码类型
-            Encoding encoding = null;
-
-            if (indexOfEncoding == 0 || indexOfEncoding == 3)
+            using (FileStream fileStream = new FileStream(excelPath, FileMode.Open))
             {
-                encoding = Encoding.GetEncoding("utf-8");
-            }
-            else if (indexOfEncoding == 1)
-            {
-                encoding = Encoding.GetEncoding("gb2312");
-            }
+                IExcelDataReader excelReader = ExcelReaderFactory.CreateOpenXmlReader(fileStream);
 
-            //根据选项转化类型
-            if (indexOfFormat == 0)
-            {
-                excelUtility.ExcelConvert(excelPath, encoding, indexOfFormat);
+                //判断Excel文件中是否存在至少一张数据表
+                if (excelReader.ResultsCount > 0)
+                {
+                    ExcelConvert(excelReader);
+                }
             }
         }
 
-        //刷新本地资源
-        AssetDatabase.Refresh();
+        EditorUtility.ClearProgressBar();
 
-        //为了解决窗口再次点击时路径错误的Bug所以完成后关闭窗口
-        currWindow.Close();
+        AssetDatabase.Refresh();
+    }
+
+    private static void ExcelConvert(IExcelDataReader excelReader)
+    {
+        List<string> luaTableKeys = new List<string>();
+
+        do
+        {
+            luaTableKeys.Clear();
+
+            int rowCount = 0;
+
+            using (DataTable dataTable = new DataTable())
+            {
+                dataTable.Load(excelReader);
+                rowCount = dataTable.Rows.Count;
+            }
+
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("local ");
+            stringBuilder.Append(excelReader.Name);
+            stringBuilder.Append(" = {");
+
+            while (excelReader.Read()/*下一行*/)
+            {
+                //遍历每一列
+                for (int i = 0; i < excelReader.FieldCount; i++)
+                {
+                    string value = excelReader.IsDBNull(i) ? "" : excelReader.GetString(i);
+
+                    if (excelReader.Depth == 1)
+                    {
+                        luaTableKeys.Add(value);
+                    }
+                    else
+                    {
+                        if (excelReader.Depth > 2 && i == 0)
+                        {
+                            stringBuilder.Append("\n");
+                        }
+
+                        if (i == 0)
+                        {
+                            stringBuilder.Append("\r\n\t[\"");
+                            stringBuilder.Append(value);
+                            stringBuilder.Append("\"]");
+                            stringBuilder.Append(" = {");
+                        }
+                        else
+                        {
+                            stringBuilder.Append("\r\n\t\t[\"");
+                            stringBuilder.Append(luaTableKeys[i]);
+                            stringBuilder.Append("\"] = \"");
+                            stringBuilder.Append(value);
+                            stringBuilder.Append("\",");
+                        }
+
+                        if (i == excelReader.FieldCount - 1)
+                        {
+                            stringBuilder.Append("\r\n\t},");
+                        }
+                    }
+                }
+
+                EditorUtility.DisplayProgressBar("配置表" + excelReader.Name + "正在导出数据中", "导出进度", excelReader.Depth * 1.0f / rowCount);
+            }
+
+            stringBuilder.Append("\n}\n\nreturn ");
+            stringBuilder.Append(excelReader.Name);
+
+            using (FileStream fileStream = new FileStream(Application.streamingAssetsPath + "/ConfigData/" + excelReader.Name + "Data.bin", FileMode.Create))
+            {
+                using (ZstandardStream zstdStream = new ZstandardStream(fileStream, CompressionMode.Compress))
+                {
+                    byte[] byteData = Encoding.UTF8.GetBytes(stringBuilder.ToString());
+                    zstdStream.Write(byteData, 0, byteData.Length);
+                }
+            }
+        }
+        while (excelReader.NextResult()/*下一张表*/);
     }
 }

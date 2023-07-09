@@ -81,7 +81,6 @@
      <Compile Include="Assets\Editor\DragonGodTool\ExportAssetBundle\ExportAssetBundle.cs" />
      <Compile Include="Assets\Editor\DragonGodTool\ExportAssetBundle\ExportCatalogueFile.cs" />
      <Compile Include="Assets\Editor\DragonGodTool\ExportExcelTool\ExcelToolPanel.cs" />
-     <Compile Include="Assets\Editor\DragonGodTool\ExportExcelTool\ExcelUtility.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_EventObject.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaConstructor.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaField.cs" />
@@ -105,6 +104,15 @@
      <Compile Include="Assets\ToLua\Injection\Editor\ToLuaInjectionHelper.cs" />
      <Compile Include="Assets\ToLua\Injection\Editor\ToLuaText.cs" />
      <None Include="Assets\DOTween\DemiLib\Core\Editor\DemiEditor.xml" />
+ <Reference Include="Unity.TextMeshPro.Editor">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.PackageManagerUI.Editor">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+ </Reference>
+ <Reference Include="Unity.CollabProxy.Editor">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ </Reference>
  <Reference Include="Unity.TextMeshPro">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
@@ -375,23 +383,29 @@
  <Reference Include="DOTweenProEditor">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTweenPro/Editor/DOTweenProEditor.dll</HintPath>
  </Reference>
- <Reference Include="CString">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/CString.dll</HintPath>
- </Reference>
- <Reference Include="Debugger">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/Debugger.dll</HintPath>
- </Reference>
  <Reference Include="Excel">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/Excel.dll</HintPath>
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Excel/Excel.dll</HintPath>
  </Reference>
  <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/ICSharpCode.SharpZipLib.dll</HintPath>
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Excel/ICSharpCode.SharpZipLib.dll</HintPath>
  </Reference>
  <Reference Include="LitJson">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/LitJson.dll</HintPath>
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Json/LitJson.dll</HintPath>
  </Reference>
  <Reference Include="zxing.unity">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/zxing.unity.dll</HintPath>
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/QRCode/zxing.unity.dll</HintPath>
+ </Reference>
+ <Reference Include="CString">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/ToLua/CString.dll</HintPath>
+ </Reference>
+ <Reference Include="Debugger">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/ToLua/Debugger.dll</HintPath>
+ </Reference>
+ <Reference Include="System.Buffers">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/ZstdCompress/System.Buffers.dll</HintPath>
+ </Reference>
+ <Reference Include="Zstandard.Net">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/ZstdCompress/Zstandard.Net.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>

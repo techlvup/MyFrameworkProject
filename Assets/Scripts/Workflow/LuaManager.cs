@@ -3,7 +3,7 @@ using LuaInterface;
 
 public class LuaManager
 {
-    private static LuaState m_luaState = null;//Lua的虚拟机
+    public static LuaState m_luaState = null;//Lua的虚拟机
     public static LuaFunction m_playGameFunc = null;
 
 
