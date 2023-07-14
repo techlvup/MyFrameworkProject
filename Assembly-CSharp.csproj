@@ -496,11 +496,8 @@
  <Reference Include="DOTweenPro">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTweenPro/DOTweenPro.dll</HintPath>
  </Reference>
- <Reference Include="Excel">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Excel/Excel.dll</HintPath>
- </Reference>
- <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Excel/ICSharpCode.SharpZipLib.dll</HintPath>
+ <Reference Include="ExcelDataReader">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Excel/ExcelDataReader.dll</HintPath>
  </Reference>
  <Reference Include="LitJson">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Json/LitJson.dll</HintPath>

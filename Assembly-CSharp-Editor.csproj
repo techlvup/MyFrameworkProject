@@ -80,7 +80,7 @@
      <Compile Include="Assets\Editor\DragonGodTool\AtlasBuilder\AtlasBuilder.cs" />
      <Compile Include="Assets\Editor\DragonGodTool\ExportAssetBundle\ExportAssetBundle.cs" />
      <Compile Include="Assets\Editor\DragonGodTool\ExportAssetBundle\ExportCatalogueFile.cs" />
-     <Compile Include="Assets\Editor\DragonGodTool\ExportExcelTool\ExcelToolPanel.cs" />
+     <Compile Include="Assets\Editor\DragonGodTool\ExportExcelTool\ExportExcelTool.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_EventObject.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaConstructor.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaField.cs" />
@@ -383,11 +383,8 @@
  <Reference Include="DOTweenProEditor">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/DOTween/DOTweenPro/Editor/DOTweenProEditor.dll</HintPath>
  </Reference>
- <Reference Include="Excel">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Excel/Excel.dll</HintPath>
- </Reference>
- <Reference Include="ICSharpCode.SharpZipLib">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Excel/ICSharpCode.SharpZipLib.dll</HintPath>
+ <Reference Include="ExcelDataReader">
+ <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Excel/ExcelDataReader.dll</HintPath>
  </Reference>
  <Reference Include="LitJson">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/Json/LitJson.dll</HintPath>

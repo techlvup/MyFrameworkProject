@@ -1,79 +1,475 @@
 ﻿using UnityEngine;
 using LuaInterface;
-using System.Text;
 using System.IO;
+using System.Collections.Generic;
+using System.Text;
 using System.IO.Compression;
 using Zstandard.Net;
+using System.Security.Cryptography;
+using System.Runtime.Serialization.Formatters.Binary;
+
+
 
 public static partial class LuaCallCS
 {
-    public static LuaTable LoadConfigData(string configName)
-    {
-        DirectoryInfo directoryInfo = new DirectoryInfo(Application.streamingAssetsPath + "/ConfigData");
+    public static string m_configPath = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("/") + 1) + "ConfigData";
 
-        LuaTable luaTable = LoadConfigData(directoryInfo, configName);
+
+
+    public static LuaTable LoadConfigData(string configName, int id)
+    {
+        if (id <= 0)
+        {
+            return null;
+        }
+
+        int configFileId;
+
+        if (id % 100 == 0)
+        {
+            configFileId = id;
+        }
+        else
+        {
+            configFileId = 100 - id % 100 + id;
+        }
+
+        DirectoryInfo directoryInfo = new DirectoryInfo(m_configPath + "/Client");
+
+        LuaTable luaTable = LoadConfigData(directoryInfo, configName, configFileId, id.ToString());
 
         return luaTable;
     }
 
-    public static LuaTable LoadConfigData(DirectoryInfo directoryInfo, string configName)
+    public static LuaTable LoadConfigData(string configName, string index)
     {
-        LuaTable luaTable = null;
-
-        FileInfo[] fileInfos = directoryInfo.GetFiles();
-
-        foreach (var file in fileInfos)
+        if (string.IsNullOrEmpty(index))
         {
-            string fileName = Path.GetFileNameWithoutExtension(file.FullName);
+            return null;
+        }
 
-            if (fileName == configName + ".bin")
+        if(int.TryParse(index, out int result))
+        {
+            return LoadConfigData(configName, result);
+        }
+
+        if(GetKeysDataByConfigName(configName, out List<string> keys, out int configFileId, index))
+        {
+            if(configFileId != 0)
             {
-                using (FileStream fileStream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None))
-                {
-                    string luaTableStr = GetLuaTableStr(fileStream);
-                    luaTable = LuaManager.m_luaState.DoString<LuaTable>(luaTableStr);
-                }
+                DirectoryInfo directoryInfo = new DirectoryInfo(m_configPath + "/Client");
+
+                LuaTable luaTable = LoadConfigData(directoryInfo, configName, configFileId, index);
 
                 return luaTable;
             }
         }
 
+        return null;
+    }
+
+    public static LuaTable LoadConfigData(DirectoryInfo directoryInfo, string configName, int configFileId, string id)
+    {
+        LuaTable luaTable = null;
+
+        FileInfo[] fileInfos = directoryInfo.GetFiles();
+
+        if(fileInfos.Length > 0)
+        {
+            foreach (var file in fileInfos)
+            {
+                string name = Path.GetFileName(file.FullName);
+
+                if (name == configName + configFileId + ".bin")
+                {
+                    using (FileStream fileStream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                    {
+                        string luaTableStr = GetLuaTableStr(fileStream, configName, id);
+                        luaTable = LuaManager.m_luaState.DoString<LuaTable>(luaTableStr);
+                    }
+
+                    return luaTable;
+                }
+            }
+        }
+
         DirectoryInfo[] directoryInfos = directoryInfo.GetDirectories();
 
-        foreach (DirectoryInfo item in directoryInfos)
+        if(directoryInfos.Length > 0)
         {
-            luaTable = LoadConfigData(item, configName);
-
-            if (luaTable != null)
+            foreach (var directory in directoryInfos)
             {
-                break;
+                luaTable = LoadConfigData(directory, configName, configFileId, id);
+
+                if (luaTable != null)
+                {
+                    break;
+                }
             }
         }
 
         return luaTable;
     }
 
-    public static string GetLuaTableStr(FileStream fileStream)
+    public static string GetLuaTableStr(FileStream fileStream, string configName, string id)
     {
         string luaTableStr = "";
 
-        byte[] compressData = new byte[fileStream.Length];
+        byte[] encryptBytes = ReadFileByteData(fileStream);
+        byte[] compressedBytes;
 
-        fileStream.Read(compressData, 0, compressData.Length);
-
-        using (MemoryStream inputMemoryStream = new MemoryStream(compressData))
+        if (GetAesKeyAndIvByConfigName(configName, out byte[] key, out byte[] iv))
         {
-            using (ZstandardStream zstdStream = new ZstandardStream(inputMemoryStream, CompressionMode.Decompress))
+            compressedBytes = DecryptByteData(encryptBytes, key, iv);
+        }
+        else
+        {
+            goto A;
+        }
+
+        byte[] decompressedBytes = DecompressByteData(compressedBytes);
+
+        Dictionary<string, string> configData = Deserialize<Dictionary<string, string>>(decompressedBytes);
+
+        if (configData.ContainsKey(id))
+        {
+            luaTableStr = configData[id];
+        }
+
+    A:;
+
+        return luaTableStr;
+    }
+
+    public static byte[] ReadFileByteData(FileStream fileStream)
+    {
+        byte[] byteData = null;
+
+        using (MemoryStream memoryStream = new MemoryStream())
+        {
+            fileStream.CopyTo(memoryStream);
+            byteData = memoryStream.ToArray();
+        }
+
+        return byteData;
+    }
+
+    public static byte[] ReadFileByteData(string path)
+    {
+        byte[] byteData = null;
+
+        using (FileStream encryptFileStream = new FileStream(path, FileMode.Open))
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
             {
-                using (MemoryStream outputMemoryStream = new MemoryStream())
+                encryptFileStream.CopyTo(memoryStream);
+                byteData = memoryStream.ToArray();
+            }
+        }
+
+        return byteData;
+    }
+
+    public static void CreateFileByBytes(string path, byte[] inputBytes)
+    {
+        using (FileStream fileStream = new FileStream(path, FileMode.Create))
+        {
+            using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
+            {
+                binaryWriter.Write(inputBytes);
+            }
+        }
+    }
+
+    public static void CreateTxtFile(string path, string content)
+    {
+        string suffix = Path.GetExtension(path);
+
+        if (suffix != ".txt")
+        {
+            return;
+        }
+
+        using (FileStream fileStream = new FileStream(path, FileMode.Create))
+        {
+            using (StreamWriter swreamWriter = new StreamWriter(fileStream))
+            {
+                swreamWriter.Write(content);
+            }
+        }
+    }
+
+    public static byte[] SerializeData(object data)
+    {
+        byte[] serializeBytes = null;
+
+        using (MemoryStream memoryStream = new MemoryStream())
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+
+            binaryFormatter.Serialize(memoryStream, data);
+
+            serializeBytes = memoryStream.ToArray();
+        }
+
+        return serializeBytes;
+    }
+
+    public static T Deserialize<T>(byte[] inputBytes)
+    {
+        T result = default(T);
+
+        using (MemoryStream memoryStream = new MemoryStream(inputBytes))
+        {
+            BinaryFormatter binaryFormatter = new BinaryFormatter();
+
+            result = (T)binaryFormatter.Deserialize(memoryStream);
+        }
+
+        return result;
+    }
+
+    public static byte[] CompressByteData(byte[] inputBytes)
+    {
+        byte[] compressBytes = null;
+
+        using (MemoryStream compressMemoryStream = new MemoryStream())
+        {
+            using (ZstandardStream compressionStream = new ZstandardStream(compressMemoryStream, CompressionMode.Compress))
+            {
+                compressionStream.Write(inputBytes, 0, inputBytes.Length);
+            }
+
+            compressBytes = compressMemoryStream.ToArray();
+        }
+
+        return compressBytes;
+    }
+
+    public static byte[] DecompressByteData(byte[] inputBytes)
+    {
+        byte[] decompressedBytes = null;
+
+        using (MemoryStream compressedMemoryStream = new MemoryStream(inputBytes))
+        {
+            using (ZstandardStream compressionStream = new ZstandardStream(compressedMemoryStream, CompressionMode.Decompress))
+            {
+                using (MemoryStream decompressedMemoryStream = new MemoryStream())
                 {
-                    zstdStream.CopyTo(outputMemoryStream);
-                    byte[] decompressData = outputMemoryStream.ToArray();
-                    luaTableStr = Encoding.UTF8.GetString(decompressData, 0, decompressData.Length);
+                    compressionStream.CopyTo(decompressedMemoryStream);
+                    decompressedBytes = decompressedMemoryStream.ToArray();
                 }
             }
         }
 
-        return luaTableStr;
+        return decompressedBytes;
+    }
+
+    public static byte[] EncryptByteData(byte[] inputBytes, byte[] key, byte[] iv)
+    {
+        byte[] encryptBytes = null;
+
+        using (AesManaged aes = new AesManaged())
+        {
+            aes.Key = key;
+            aes.IV = iv;
+
+            using (ICryptoTransform encryptor = aes.CreateEncryptor(key, iv))
+            {
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
+                    {
+                        cryptoStream.Write(inputBytes, 0, inputBytes.Length);
+                        cryptoStream.FlushFinalBlock();//加密会将最后一个数据块填充为满块(需要)，解密会删除填充的数据块(不需要)
+                    }
+
+                    encryptBytes = memoryStream.ToArray();
+                }
+            }
+        }
+
+        return encryptBytes;
+    }
+
+    public static byte[] DecryptByteData(byte[] inputBytes, byte[] key, byte[] iv)
+    {
+        byte[] decryptBytes = null;
+
+        using (MemoryStream inputMemoryStream = new MemoryStream(inputBytes))
+        {
+            using (AesManaged aes = new AesManaged())
+            {
+                aes.Key = key;
+                aes.IV = iv;
+
+                using (ICryptoTransform decryptor = aes.CreateDecryptor(key, iv))
+                {
+                    using (MemoryStream outputMemoryStream = new MemoryStream())
+                    {
+                        using (CryptoStream cryptoStream = new CryptoStream(inputMemoryStream, decryptor, CryptoStreamMode.Read))
+                        {
+                            cryptoStream.CopyTo(outputMemoryStream);
+                        }
+
+                        decryptBytes = outputMemoryStream.ToArray();
+                    }
+                }
+            }
+        }
+
+        return decryptBytes;
+    }
+
+    public static byte[] GetRandomByteData(int size)
+    {
+        byte[] randomByteData = new byte[size];//size大小字节的随机数据
+
+        using (RNGCryptoServiceProvider rng = new RNGCryptoServiceProvider())
+        {
+            rng.GetBytes(randomByteData);
+        }
+
+        return randomByteData;
+    }
+
+    public static void SaveConfigDecryptData(object aesKeyAndIvData, string fileName)
+    {
+        if (aesKeyAndIvData == null)
+        {
+            return;
+        }
+
+        byte[] inputBytes = SerializeData(aesKeyAndIvData);
+        byte[] compressBytes = CompressByteData(inputBytes);
+        byte[] encryptBytes = EncryptByteData(compressBytes, Encoding.UTF8.GetBytes("95gbt368426hyb13"), Encoding.UTF8.GetBytes("i8g3451h5cxmj6rf"));
+
+        string directoryPath = m_configPath + "/ConfigDecryptData";
+
+        if (!Directory.Exists(directoryPath))
+        {
+            Directory.CreateDirectory(directoryPath);
+        }
+
+        CreateFileByBytes(directoryPath + "/" + fileName, encryptBytes);
+    }
+
+    public static bool GetAesKeyAndIvByConfigName(string ConfigName, out byte[] key, out byte[] iv)
+    {
+        string path = m_configPath + "/ConfigDecryptData/AesKeyAndIvData.bin";
+
+        if (!File.Exists(path))
+        {
+            goto A;
+        }
+
+        byte[] inputBytes = ReadFileByteData(path);
+        byte[] decryptBytes = DecryptByteData(inputBytes, Encoding.UTF8.GetBytes("95gbt368426hyb13"), Encoding.UTF8.GetBytes("i8g3451h5cxmj6rf"));
+        byte[] decompressedBytes = DecompressByteData(decryptBytes);
+
+        Dictionary<string, Dictionary<string, byte[]>> aesKeyAndIvData = Deserialize<Dictionary<string, Dictionary<string, byte[]>>>(decompressedBytes);
+
+        if (aesKeyAndIvData.ContainsKey(ConfigName))
+        {
+            key = aesKeyAndIvData[ConfigName]["Key"];
+            iv = aesKeyAndIvData[ConfigName]["Iv"];
+            return true;
+        }
+
+    A:;
+
+        key = null;
+        iv = null;
+
+        return false;
+    }
+
+    public static bool GetKeysDataByConfigName(string configName, out List<string> keys, out int configFileId, string index = "")
+    {
+        keys = null;
+        configFileId = 0;
+
+        string path = m_configPath + "/ConfigDecryptData/ConfigKeys.bin";
+
+        if (!File.Exists(path))
+        {
+            goto A;
+        }
+
+        byte[] inputBytes = ReadFileByteData(path);
+        byte[] decryptBytes = DecryptByteData(inputBytes, Encoding.UTF8.GetBytes("95gbt368426hyb13"), Encoding.UTF8.GetBytes("i8g3451h5cxmj6rf"));
+        byte[] decompressedBytes = DecompressByteData(decryptBytes);
+
+        Dictionary<string, Dictionary<string, int>> keysData = Deserialize<Dictionary<string, Dictionary<string, int>>>(decompressedBytes);
+
+        if (keysData.ContainsKey(configName))
+        {
+            if(string.IsNullOrEmpty(index))
+            {
+                keys = new List<string>();
+
+                foreach (var item in keysData[configName])
+                {
+                    keys.Add(item.Key);
+                }
+            }
+            else
+            {
+                configFileId = keysData[configName][index];
+
+                if (configFileId % 100 != 0)
+                {
+                    configFileId = 100 - configFileId % 100 + configFileId;
+                }
+            }
+
+            return true;
+        }
+
+    A:;
+
+        return false;
+    }
+
+    public static List<string> GetConfigListKeysByName(string configName)
+    {
+        List<string> result = null;
+
+        if (GetKeysDataByConfigName(configName, out List<string> keys, out int configFileId))
+        {
+            result = keys;
+        }
+
+        return result;
+    }
+
+    public static LuaTable GetConfigLuaTableKeysByName(string configName)
+    {
+        LuaTable result = null;
+
+        if (GetKeysDataByConfigName(configName, out List<string> keys, out int configFileId))
+        {
+            if(keys != null && keys.Count > 0)
+            {
+                StringBuilder content = new StringBuilder();
+
+                content.Append("local data = {");
+
+                for (int i = 0; i < keys.Count; i++)
+                {
+                    content.Append("\r\n\t[");
+                    content.Append(i + 1);
+                    content.Append("] = \"");
+                    content.Append(keys[i]);
+                    content.Append("\",");
+                }
+
+                content.Append("}\r\n\nreturn data");
+
+                result = LuaManager.m_luaState.DoString<LuaTable>(content.ToString());
+            }
+        }
+
+        return result;
     }
 }

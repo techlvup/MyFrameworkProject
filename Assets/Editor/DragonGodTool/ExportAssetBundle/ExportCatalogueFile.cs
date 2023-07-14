@@ -6,13 +6,17 @@ using System.IO;
 public static class ExportCatalogueFile
 {
     private static string m_luaPath = "Assets/Lua";
-
+    private static string m_clientConfigPath = "ConfigData/Client";
+    private static string m_serverConfigPath = "ConfigData/Server";
+    private static string m_aesKeyAndIvDataPath = "ConfigData/ConfigDecryptData";
     private static string m_catalogueFilePath_Windows = "HotUpdateFiles/Windows/CatalogueFile.txt";
     private static string m_catalogueFilePath_MacOS = "HotUpdateFiles/MacOS/CatalogueFile.txt";
     private static string m_catalogueFilePath_Android = "HotUpdateFiles/Android/CatalogueFile.txt";
     private static string m_catalogueFilePath_IOS = "HotUpdateFiles/IOS/CatalogueFile.txt";
 
     private static StringBuilder m_filesContent = null;
+
+
 
     [MenuItem("DragonGodTool/AssetBundles/更新AssetBundles目录文件/BuildCatalogueFile_Windows")]
     public static void BuildCatalogueFile_Windows()
@@ -45,6 +49,9 @@ public static class ExportCatalogueFile
             using (StreamWriter sw = new StreamWriter(fs))
             {
                 SetMd5Files(m_luaPath);
+                SetMd5Files(m_clientConfigPath);
+                SetMd5Files(m_serverConfigPath);
+                SetMd5Files(m_aesKeyAndIvDataPath);
                 SetMd5Files(assetBundlesPath.Substring(0, assetBundlesPath.Length - 17) + "AssetBundles");
 
                 if (m_filesContent != null)
@@ -64,7 +71,9 @@ public static class ExportCatalogueFile
         //遍历文件
         foreach (FileInfo nextFile in folder.GetFiles())
         {
-            if (nextFile.Name.Length >= 6 && nextFile.Name.Substring(nextFile.Name.Length - 5, 5) == ".meta")
+            string suffix = Path.GetExtension(nextFile.Name);
+
+            if (suffix == ".meta")
             {
                 goto A;
             }
@@ -87,12 +96,12 @@ public static class ExportCatalogueFile
         {
             if (nextFolder.Name == ".idea")
             {
-                goto A;
+                goto B;
             }
 
             SetMd5Files(directoryPath + "/" + nextFolder.Name);
 
-        A:;
+        B:;
         }
     }
 

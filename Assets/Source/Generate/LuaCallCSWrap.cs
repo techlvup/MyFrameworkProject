@@ -26,6 +26,23 @@ public class LuaCallCSWrap
 		L.RegFunction("ReleaseLongPressListener", ReleaseLongPressListener);
 		L.RegFunction("TextureToCircle", TextureToCircle);
 		L.RegFunction("TextureToOriginal", TextureToOriginal);
+		L.RegFunction("LoadConfigData", LoadConfigData);
+		L.RegFunction("GetLuaTableStr", GetLuaTableStr);
+		L.RegFunction("ReadFileByteData", ReadFileByteData);
+		L.RegFunction("CreateFileByBytes", CreateFileByBytes);
+		L.RegFunction("CreateTxtFile", CreateTxtFile);
+		L.RegFunction("SerializeData", SerializeData);
+		L.RegFunction("CompressByteData", CompressByteData);
+		L.RegFunction("DecompressByteData", DecompressByteData);
+		L.RegFunction("EncryptByteData", EncryptByteData);
+		L.RegFunction("DecryptByteData", DecryptByteData);
+		L.RegFunction("GetRandomByteData", GetRandomByteData);
+		L.RegFunction("SaveConfigDecryptData", SaveConfigDecryptData);
+		L.RegFunction("GetAesKeyAndIvByConfigName", GetAesKeyAndIvByConfigName);
+		L.RegFunction("GetKeysDataByConfigName", GetKeysDataByConfigName);
+		L.RegFunction("GetConfigListKeysByName", GetConfigListKeysByName);
+		L.RegFunction("GetConfigLuaTableKeysByName", GetConfigLuaTableKeysByName);
+		L.RegVar("m_configPath", get_m_configPath, set_m_configPath);
 		L.EndStaticLibs();
 	}
 
@@ -414,6 +431,383 @@ public class LuaCallCSWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.TextureToOriginal");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int LoadConfigData(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 2 && TypeChecker.CheckTypes<int>(L, 2))
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				int arg1 = (int)LuaDLL.lua_tonumber(L, 2);
+				LuaInterface.LuaTable o = LuaCallCS.LoadConfigData(arg0, arg1);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes<string>(L, 2))
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				string arg1 = ToLua.ToString(L, 2);
+				LuaInterface.LuaTable o = LuaCallCS.LoadConfigData(arg0, arg1);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				System.IO.DirectoryInfo arg0 = (System.IO.DirectoryInfo)ToLua.CheckObject(L, 1, typeof(System.IO.DirectoryInfo));
+				string arg1 = ToLua.CheckString(L, 2);
+				int arg2 = (int)LuaDLL.luaL_checknumber(L, 3);
+				string arg3 = ToLua.CheckString(L, 4);
+				LuaInterface.LuaTable o = LuaCallCS.LoadConfigData(arg0, arg1, arg2, arg3);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.LoadConfigData");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetLuaTableStr(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			System.IO.FileStream arg0 = (System.IO.FileStream)ToLua.CheckObject<System.IO.FileStream>(L, 1);
+			string arg1 = ToLua.CheckString(L, 2);
+			string arg2 = ToLua.CheckString(L, 3);
+			string o = LuaCallCS.GetLuaTableStr(arg0, arg1, arg2);
+			LuaDLL.lua_pushstring(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ReadFileByteData(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1 && TypeChecker.CheckTypes<System.IO.FileStream>(L, 1))
+			{
+				System.IO.FileStream arg0 = (System.IO.FileStream)ToLua.ToObject(L, 1);
+				byte[] o = LuaCallCS.ReadFileByteData(arg0);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else if (count == 1 && TypeChecker.CheckTypes<string>(L, 1))
+			{
+				string arg0 = ToLua.ToString(L, 1);
+				byte[] o = LuaCallCS.ReadFileByteData(arg0);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.ReadFileByteData");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CreateFileByBytes(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			string arg0 = ToLua.CheckString(L, 1);
+			byte[] arg1 = ToLua.CheckByteBuffer(L, 2);
+			LuaCallCS.CreateFileByBytes(arg0, arg1);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CreateTxtFile(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			string arg0 = ToLua.CheckString(L, 1);
+			string arg1 = ToLua.CheckString(L, 2);
+			LuaCallCS.CreateTxtFile(arg0, arg1);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SerializeData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			object arg0 = ToLua.ToVarObject(L, 1);
+			byte[] o = LuaCallCS.SerializeData(arg0);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int CompressByteData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			byte[] arg0 = ToLua.CheckByteBuffer(L, 1);
+			byte[] o = LuaCallCS.CompressByteData(arg0);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DecompressByteData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			byte[] arg0 = ToLua.CheckByteBuffer(L, 1);
+			byte[] o = LuaCallCS.DecompressByteData(arg0);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int EncryptByteData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			byte[] arg0 = ToLua.CheckByteBuffer(L, 1);
+			byte[] arg1 = ToLua.CheckByteBuffer(L, 2);
+			byte[] arg2 = ToLua.CheckByteBuffer(L, 3);
+			byte[] o = LuaCallCS.EncryptByteData(arg0, arg1, arg2);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int DecryptByteData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			byte[] arg0 = ToLua.CheckByteBuffer(L, 1);
+			byte[] arg1 = ToLua.CheckByteBuffer(L, 2);
+			byte[] arg2 = ToLua.CheckByteBuffer(L, 3);
+			byte[] o = LuaCallCS.DecryptByteData(arg0, arg1, arg2);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetRandomByteData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			int arg0 = (int)LuaDLL.luaL_checknumber(L, 1);
+			byte[] o = LuaCallCS.GetRandomByteData(arg0);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SaveConfigDecryptData(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			object arg0 = ToLua.ToVarObject(L, 1);
+			string arg1 = ToLua.CheckString(L, 2);
+			LuaCallCS.SaveConfigDecryptData(arg0, arg1);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetAesKeyAndIvByConfigName(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			string arg0 = ToLua.CheckString(L, 1);
+			byte[] arg1 = null;
+			byte[] arg2 = null;
+			bool o = LuaCallCS.GetAesKeyAndIvByConfigName(arg0, out arg1, out arg2);
+			LuaDLL.lua_pushboolean(L, o);
+			ToLua.Push(L, arg1);
+			ToLua.Push(L, arg2);
+			return 3;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetKeysDataByConfigName(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 3)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				System.Collections.Generic.List<string> arg1 = null;
+				int arg2;
+				bool o = LuaCallCS.GetKeysDataByConfigName(arg0, out arg1, out arg2);
+				LuaDLL.lua_pushboolean(L, o);
+				ToLua.PushSealed(L, arg1);
+				LuaDLL.lua_pushinteger(L, arg2);
+				return 3;
+			}
+			else if (count == 4)
+			{
+				string arg0 = ToLua.CheckString(L, 1);
+				System.Collections.Generic.List<string> arg1 = null;
+				int arg2;
+				string arg3 = ToLua.CheckString(L, 4);
+				bool o = LuaCallCS.GetKeysDataByConfigName(arg0, out arg1, out arg2, arg3);
+				LuaDLL.lua_pushboolean(L, o);
+				ToLua.PushSealed(L, arg1);
+				LuaDLL.lua_pushinteger(L, arg2);
+				return 3;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.GetKeysDataByConfigName");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetConfigListKeysByName(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			System.Collections.Generic.List<string> o = LuaCallCS.GetConfigListKeysByName(arg0);
+			ToLua.PushSealed(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetConfigLuaTableKeysByName(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			LuaInterface.LuaTable o = LuaCallCS.GetConfigLuaTableKeysByName(arg0);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int get_m_configPath(IntPtr L)
+	{
+		try
+		{
+			LuaDLL.lua_pushstring(L, LuaCallCS.m_configPath);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int set_m_configPath(IntPtr L)
+	{
+		try
+		{
+			string arg0 = ToLua.CheckString(L, 2);
+			LuaCallCS.m_configPath = arg0;
+			return 0;
 		}
 		catch (Exception e)
 		{
