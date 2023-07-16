@@ -48,14 +48,14 @@ public static partial class LuaCallCS
             return null;
         }
 
-        if(int.TryParse(index, out int result))
+        if (int.TryParse(index, out int result))
         {
             return LoadConfigData(configName, result);
         }
 
-        if(GetKeysDataByConfigName(configName, out List<string> keys, out int configFileId, index))
+        if (GetKeysDataByConfigName(configName, out List<string> keys, out int configFileId, index))
         {
-            if(configFileId != 0)
+            if (configFileId != 0)
             {
                 DirectoryInfo directoryInfo = new DirectoryInfo(m_configPath + "/Client");
 
@@ -74,7 +74,7 @@ public static partial class LuaCallCS
 
         FileInfo[] fileInfos = directoryInfo.GetFiles();
 
-        if(fileInfos.Length > 0)
+        if (fileInfos.Length > 0)
         {
             foreach (var file in fileInfos)
             {
@@ -95,7 +95,7 @@ public static partial class LuaCallCS
 
         DirectoryInfo[] directoryInfos = directoryInfo.GetDirectories();
 
-        if(directoryInfos.Length > 0)
+        if (directoryInfos.Length > 0)
         {
             foreach (var directory in directoryInfos)
             {
@@ -333,14 +333,14 @@ public static partial class LuaCallCS
         return randomByteData;
     }
 
-    public static void SaveConfigDecryptData(object aesKeyAndIvData, string fileName)
+    public static void SaveConfigDecryptData(object data, string fileName)
     {
-        if (aesKeyAndIvData == null)
+        if (data == null)
         {
             return;
         }
 
-        byte[] inputBytes = SerializeData(aesKeyAndIvData);
+        byte[] inputBytes = SerializeData(data);
         byte[] compressBytes = CompressByteData(inputBytes);
         byte[] encryptBytes = EncryptByteData(compressBytes, Encoding.UTF8.GetBytes("95gbt368426hyb13"), Encoding.UTF8.GetBytes("i8g3451h5cxmj6rf"));
 
@@ -389,7 +389,7 @@ public static partial class LuaCallCS
         keys = null;
         configFileId = 0;
 
-        string path = m_configPath + "/ConfigDecryptData/ConfigKeys.bin";
+        string path = m_configPath + "/ConfigDecryptData/" + configName + "Keys.bin";
 
         if (!File.Exists(path))
         {
@@ -400,22 +400,22 @@ public static partial class LuaCallCS
         byte[] decryptBytes = DecryptByteData(inputBytes, Encoding.UTF8.GetBytes("95gbt368426hyb13"), Encoding.UTF8.GetBytes("i8g3451h5cxmj6rf"));
         byte[] decompressedBytes = DecompressByteData(decryptBytes);
 
-        Dictionary<string, Dictionary<string, int>> keysData = Deserialize<Dictionary<string, Dictionary<string, int>>>(decompressedBytes);
+        Dictionary<string, int> keysData = Deserialize<Dictionary<string, int>>(decompressedBytes);
 
-        if (keysData.ContainsKey(configName))
+        if (keysData.Count > 0)
         {
-            if(string.IsNullOrEmpty(index))
+            if (string.IsNullOrEmpty(index))
             {
                 keys = new List<string>();
 
-                foreach (var item in keysData[configName])
+                foreach (var item in keysData)
                 {
                     keys.Add(item.Key);
                 }
             }
             else
             {
-                configFileId = keysData[configName][index];
+                configFileId = keysData[index];
 
                 if (configFileId % 100 != 0)
                 {
@@ -449,7 +449,7 @@ public static partial class LuaCallCS
 
         if (GetKeysDataByConfigName(configName, out List<string> keys, out int configFileId))
         {
-            if(keys != null && keys.Count > 0)
+            if (keys != null && keys.Count > 0)
             {
                 StringBuilder content = new StringBuilder();
 

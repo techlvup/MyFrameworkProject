@@ -60,7 +60,7 @@ public class ExportExcelTool
             }
         }
 
-        if(m_aesKeyAndIvDatas.Count > 0)
+        if (m_aesKeyAndIvDatas.Count > 0)
         {
             LuaCallCS.SaveConfigDecryptData(m_aesKeyAndIvDatas, "AesKeyAndIvData.bin");
             m_aesKeyAndIvDatas.Clear();
@@ -68,40 +68,17 @@ public class ExportExcelTool
 
         if (m_configKeys.Count > 0)
         {
-            LuaCallCS.SaveConfigDecryptData(m_configKeys, "ConfigKeys.bin");
+            foreach (var item in m_configKeys)
+            {
+                LuaCallCS.SaveConfigDecryptData(item.Value, item.Key + "Keys.bin");
+            }
+
             m_configKeys.Clear();
         }
 
         EditorUtility.ClearProgressBar();
 
         AssetDatabase.Refresh();
-    }
-
-    [MenuItem("DragonGodTool/解析打包的配置数据")]
-    public static void UnpackBinData()
-    {
-        byte[] encryptBytes = LuaCallCS.ReadFileByteData(LuaCallCS.m_configPath + "/Client/Player/Player100.bin");
-
-        byte[] compressedBytes;
-
-        if (LuaCallCS.GetAesKeyAndIvByConfigName("Player", out byte[] key, out byte[] iv))
-        {
-            compressedBytes = LuaCallCS.DecryptByteData(encryptBytes, key, iv);
-        }
-        else
-        {
-            return;
-        }
-
-        byte[] decompressedBytes = LuaCallCS.DecompressByteData(compressedBytes);
-
-        Dictionary<string, string> configData = LuaCallCS.Deserialize<Dictionary<string, string>>(decompressedBytes);
-
-        if (configData.ContainsKey("2_3"))
-        {
-            string path = LuaCallCS.m_configPath + "/Client/Player/Player.txt";
-            CreateTxtFile(path, configData["2_3"]);
-        }
     }
 
 
@@ -163,7 +140,7 @@ public class ExportExcelTool
                     int clientMaxCol = 0;
                     int serverMaxCol = 0;
 
-                    if(clientColumnIndex.Count > 0)
+                    if (clientColumnIndex.Count > 0)
                     {
                         clientMaxCol = clientColumnIndex[clientColumnIndex.Count - 1];
                     }
