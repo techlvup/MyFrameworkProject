@@ -363,11 +363,7 @@ public static partial class LuaCallCS
             goto A;
         }
 
-        byte[] inputBytes = ReadFileByteData(path);
-        byte[] decryptBytes = DecryptByteData(inputBytes, Encoding.UTF8.GetBytes("95gbt368426hyb13"), Encoding.UTF8.GetBytes("i8g3451h5cxmj6rf"));
-        byte[] decompressedBytes = DecompressByteData(decryptBytes);
-
-        Dictionary<string, Dictionary<string, byte[]>> aesKeyAndIvData = Deserialize<Dictionary<string, Dictionary<string, byte[]>>>(decompressedBytes);
+        Dictionary<string, Dictionary<string, byte[]>> aesKeyAndIvData = GetFixedDecryptionDeviceDataByFileName<Dictionary<string, Dictionary<string, byte[]>>>(path);
 
         if (aesKeyAndIvData.ContainsKey(ConfigName))
         {
@@ -396,11 +392,7 @@ public static partial class LuaCallCS
             goto A;
         }
 
-        byte[] inputBytes = ReadFileByteData(path);
-        byte[] decryptBytes = DecryptByteData(inputBytes, Encoding.UTF8.GetBytes("95gbt368426hyb13"), Encoding.UTF8.GetBytes("i8g3451h5cxmj6rf"));
-        byte[] decompressedBytes = DecompressByteData(decryptBytes);
-
-        Dictionary<string, int> keysData = Deserialize<Dictionary<string, int>>(decompressedBytes);
+        Dictionary<string, int> keysData = GetFixedDecryptionDeviceDataByFileName<Dictionary<string, int>>(path);
 
         if (keysData.Count > 0)
         {
@@ -469,6 +461,41 @@ public static partial class LuaCallCS
                 result = LuaManager.m_luaState.DoString<LuaTable>(content.ToString());
             }
         }
+
+        return result;
+    }
+
+    public static bool GetTextureRectByAtlasName(string atlasName, string textureName, out float[] rect)
+    {
+        rect = new float[4];
+
+        string path = m_configPath + "/ConfigDecryptData/" + atlasName + ".bin";
+
+        if (!File.Exists(path))
+        {
+            goto A;
+        }
+
+        Dictionary<string, float[]> textureRect = GetFixedDecryptionDeviceDataByFileName<Dictionary<string, float[]>>(path);
+
+        if(textureRect.ContainsKey(textureName))
+        {
+            rect = textureRect[textureName];
+            return true;
+        }
+
+    A:;
+
+        return false;
+    }
+
+    public static T GetFixedDecryptionDeviceDataByFileName<T>(string path)
+    {
+        byte[] inputBytes = ReadFileByteData(path);
+        byte[] decryptBytes = DecryptByteData(inputBytes, Encoding.UTF8.GetBytes("95gbt368426hyb13"), Encoding.UTF8.GetBytes("i8g3451h5cxmj6rf"));
+        byte[] decompressedBytes = DecompressByteData(decryptBytes);
+
+        T result = Deserialize<T>(decompressedBytes);
 
         return result;
     }

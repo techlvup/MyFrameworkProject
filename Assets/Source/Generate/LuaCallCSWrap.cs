@@ -26,6 +26,10 @@ public class LuaCallCSWrap
 		L.RegFunction("ReleaseLongPressListener", ReleaseLongPressListener);
 		L.RegFunction("TextureToCircle", TextureToCircle);
 		L.RegFunction("TextureToOriginal", TextureToOriginal);
+		L.RegFunction("SetSpriteImage", SetSpriteImage);
+		L.RegFunction("SetSpriteImageNativeSize", SetSpriteImageNativeSize);
+		L.RegFunction("SetTextureRawImage", SetTextureRawImage);
+		L.RegFunction("SetTextureRawImageNativeSize", SetTextureRawImageNativeSize);
 		L.RegFunction("LoadConfigData", LoadConfigData);
 		L.RegFunction("GetLuaTableStr", GetLuaTableStr);
 		L.RegFunction("ReadFileByteData", ReadFileByteData);
@@ -42,6 +46,7 @@ public class LuaCallCSWrap
 		L.RegFunction("GetKeysDataByConfigName", GetKeysDataByConfigName);
 		L.RegFunction("GetConfigListKeysByName", GetConfigListKeysByName);
 		L.RegFunction("GetConfigLuaTableKeysByName", GetConfigLuaTableKeysByName);
+		L.RegFunction("GetTextureRectByAtlasName", GetTextureRectByAtlasName);
 		L.RegVar("m_configPath", get_m_configPath, set_m_configPath);
 		L.EndStaticLibs();
 	}
@@ -439,6 +444,134 @@ public class LuaCallCSWrap
 	}
 
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetSpriteImage(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				LuaCallCS.SetSpriteImage(arg0);
+				return 0;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaCallCS.SetSpriteImage(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				string arg2 = ToLua.CheckString(L, 3);
+				LuaCallCS.SetSpriteImage(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				string arg2 = ToLua.CheckString(L, 3);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
+				LuaCallCS.SetSpriteImage(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.SetSpriteImage");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetSpriteImageNativeSize(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.UI.Image arg0 = (UnityEngine.UI.Image)ToLua.CheckObject<UnityEngine.UI.Image>(L, 1);
+			LuaCallCS.SetSpriteImageNativeSize(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetTextureRawImage(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				LuaCallCS.SetTextureRawImage(arg0);
+				return 0;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaCallCS.SetTextureRawImage(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				string arg2 = ToLua.CheckString(L, 3);
+				LuaCallCS.SetTextureRawImage(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				string arg2 = ToLua.CheckString(L, 3);
+				bool arg3 = LuaDLL.luaL_checkboolean(L, 4);
+				LuaCallCS.SetTextureRawImage(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.SetTextureRawImage");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetTextureRawImageNativeSize(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			UnityEngine.UI.RawImage arg0 = (UnityEngine.UI.RawImage)ToLua.CheckObject<UnityEngine.UI.RawImage>(L, 1);
+			LuaCallCS.SetTextureRawImageNativeSize(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static int LoadConfigData(IntPtr L)
 	{
 		try
@@ -779,6 +912,26 @@ public class LuaCallCSWrap
 			LuaInterface.LuaTable o = LuaCallCS.GetConfigLuaTableKeysByName(arg0);
 			ToLua.Push(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int GetTextureRectByAtlasName(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 3);
+			string arg0 = ToLua.CheckString(L, 1);
+			string arg1 = ToLua.CheckString(L, 2);
+			float[] arg2 = null;
+			bool o = LuaCallCS.GetTextureRectByAtlasName(arg0, arg1, out arg2);
+			LuaDLL.lua_pushboolean(L, o);
+			ToLua.Push(L, arg2);
+			return 2;
 		}
 		catch (Exception e)
 		{

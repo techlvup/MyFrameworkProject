@@ -240,4 +240,128 @@ public static partial class LuaCallCS
             }
         }
     }
+
+    public static void SetSpriteImage(UnityEngine.Object obj, string childPath = "", string spritePath = "", bool isSetNativeSize = false)
+    {
+        if(string.IsNullOrEmpty(spritePath))
+        {
+            return;
+        }
+
+        Transform trans = GetTransform(obj);
+
+        if(!string.IsNullOrEmpty(childPath))
+        {
+            trans = trans.Find(childPath);
+        }
+
+        if (trans != null)
+        {
+            Image image = trans.GetComponent<Image>();
+
+            Sprite sprite = null;
+
+            string[] spriteInfo = spritePath.Split('/');
+
+            if (spriteInfo[0] == spriteInfo[1])
+            {
+                sprite = Resources.Load<Sprite>("Png/" + spriteInfo[1]);
+            }
+            else if (GetTextureRectByAtlasName(spriteInfo[0], spriteInfo[1], out float[] rect))
+            {
+                Texture2D atlas = Resources.Load<Texture2D>("Atlas/" + spriteInfo[0] + "/" + spriteInfo[0]);
+
+                float x = rect[0] * atlas.width;
+                float y = rect[1] * atlas.height;
+                float width = rect[2] * atlas.width;
+                float height = rect[3] * atlas.height;
+
+                sprite = Sprite.Create(atlas, new Rect(x, y, width, height), new Vector2(0.5f, 0.5f));
+
+                Material material = Resources.Load<Material>("Atlas/" + spriteInfo[0] + "/" + spriteInfo[0] + "Material");
+
+                material.enableInstancing = true;//打开GPU实例化，提高性能
+                material.mainTexture = atlas;//把图集纹理设置为材质的主纹理
+
+                image.material = material;
+            }
+
+            if(sprite != null)
+            {
+                image.sprite = sprite;
+            }
+
+            if(isSetNativeSize)
+            {
+                SetSpriteImageNativeSize(image);
+            }
+        }
+    }
+
+    public static void SetSpriteImageNativeSize(Image image)
+    {
+        image.SetNativeSize();
+    }
+
+    public static void SetTextureRawImage(UnityEngine.Object obj, string childPath = "", string texturePath = "", bool isSetNativeSize = false)
+    {
+        if (string.IsNullOrEmpty(texturePath))
+        {
+            return;
+        }
+
+        Transform trans = GetTransform(obj);
+
+        if (!string.IsNullOrEmpty(childPath))
+        {
+            trans = trans.Find(childPath);
+        }
+
+        if (trans != null)
+        {
+            RawImage rawImage = trans.GetComponent<RawImage>();
+
+            Sprite sprite = null;
+
+            string[] spriteInfo = texturePath.Split('/');
+
+            if (spriteInfo[0] == spriteInfo[1])
+            {
+                sprite = Resources.Load<Sprite>("Png/" + spriteInfo[1]);
+            }
+            else if (GetTextureRectByAtlasName(spriteInfo[0], spriteInfo[1], out float[] rect))
+            {
+                Texture2D atlas = Resources.Load<Texture2D>("Atlas/" + spriteInfo[0] + "/" + spriteInfo[0]);
+
+                float x = rect[0] * atlas.width;
+                float y = rect[1] * atlas.height;
+                float width = rect[2] * atlas.width;
+                float height = rect[3] * atlas.height;
+
+                sprite = Sprite.Create(atlas, new Rect(x, y, width, height), new Vector2(0.5f, 0.5f));
+
+                Material material = Resources.Load<Material>("Atlas/" + spriteInfo[0] + "/" + spriteInfo[0] + "Material");
+
+                material.enableInstancing = true;//打开GPU实例化，提高性能
+                material.mainTexture = atlas;//把图集纹理设置为材质的主纹理
+
+                rawImage.material = material;
+            }
+
+            if (sprite != null)
+            {
+                rawImage.texture = sprite.texture;
+            }
+
+            if (isSetNativeSize)
+            {
+                SetTextureRawImageNativeSize(rawImage);
+            }
+        }
+    }
+
+    public static void SetTextureRawImageNativeSize(RawImage rawImage)
+    {
+        rawImage.SetNativeSize();
+    }
 }
