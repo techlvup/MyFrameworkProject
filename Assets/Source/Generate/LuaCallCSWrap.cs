@@ -13,7 +13,6 @@ public class LuaCallCSWrap
 		L.RegFunction("GetComponent", GetComponent);
 		L.RegFunction("AddComponent", AddComponent);
 		L.RegFunction("Clone", Clone);
-		L.RegFunction("SetPlayGameFunc", SetPlayGameFunc);
 		L.RegFunction("AddClickListener", AddClickListener);
 		L.RegFunction("ReleaseClickListener", ReleaseClickListener);
 		L.RegFunction("AddDownListener", AddDownListener);
@@ -193,22 +192,6 @@ public class LuaCallCSWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.Clone");
 			}
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int SetPlayGameFunc(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 1);
-			LuaFunction arg0 = ToLua.CheckLuaFunction(L, 1);
-			LuaCallCS.SetPlayGameFunc(arg0);
-			return 0;
 		}
 		catch (Exception e)
 		{

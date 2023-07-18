@@ -1,5 +1,0 @@
-Assets/Lua/Workflow/Launcher.lua|2771F7EF145E5AD7B85A553EB67E629E
-HotUpdateFiles/Android/AssetBundles/AssetBundles|5B627D355041E8601958F5AD9351D097
-HotUpdateFiles/Android/AssetBundles/AssetBundles.manifest|82423BE3BEF28E5874BFDA84CA1DBD65
-HotUpdateFiles/Android/AssetBundles/test.ab|C67F5F6481A0DC35C17F7D41ABAABF71
-HotUpdateFiles/Android/AssetBundles/test.ab.manifest|04D3F7D4DCCC0F674BCD622D7E360BE1

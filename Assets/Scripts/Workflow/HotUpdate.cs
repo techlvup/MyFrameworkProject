@@ -8,13 +8,13 @@ using UnityEngine.Networking;
 public class HotUpdate : MonoBehaviour
 {
     private Launcher m_launcher;
-    private int m_nowDownloadNum;
-    private int m_needDownloadNum;
+    private float m_nowDownloadNum;
+    private float m_needDownloadNum;
+    private string m_webRootPath;
+    private string m_localRootPath;
     private string m_catalogueFileWebURL;
-    private string m_catalogueFileLocalURL;
+    private string m_catalogueFileLocalPath;
     private GameLoadingPanel m_GameLoadingPanel;
-    private float m_time;
-
 
 
 
@@ -25,26 +25,15 @@ public class HotUpdate : MonoBehaviour
         m_nowDownloadNum = 0;
         m_needDownloadNum = -1;
 
-        m_time = 0;
+        m_webRootPath = "https://github.com/techlvup/MyFrameworkProject/blob/main/";
+        m_localRootPath = Application.persistentDataPath + "/";
 
 #if UNITY_EDITOR
         m_needDownloadNum = 3;
 
-#elif UNITY_STANDALONE_WIN
-        m_catalogueFileWebURL = "http://MyFrameworkProject/HotUpdateAssetBundles/Windows/CatalogueFile.txt";
-        m_catalogueFileLocalURL = Application.persistentDataPath + "/MyFrameworkProject/HotUpdateAssetBundles/Windows/CatalogueFile.txt";
-
-#elif UNITY_STANDALONE_OSX
-        m_catalogueFileWebURL = "http://MyFrameworkProject/HotUpdateAssetBundles/MacOS/CatalogueFile.txt";
-        m_catalogueFileLocalURL = Application.persistentDataPath + "/MyFrameworkProject/HotUpdateAssetBundles/MacOS/CatalogueFile.txt";
-
 #elif UNITY_ANDROID
-        m_catalogueFileWebURL = "http://MyFrameworkProject/HotUpdateAssetBundles/Android/CatalogueFile.txt";
-        m_catalogueFileLocalURL = Application.persistentDataPath + "/MyFrameworkProject/HotUpdateAssetBundles/Android/CatalogueFile.txt";
-
-#elif UNITY_IOS
-        m_catalogueFileWebURL = "http://MyFrameworkProject/HotUpdateAssetBundles/IOS/CatalogueFile.txt";
-        m_catalogueFileLocalURL = Application.persistentDataPath + "/MyFrameworkProject/HotUpdateAssetBundles/IOS/CatalogueFile.txt";
+        m_catalogueFileWebURL = m_webRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
+        m_catalogueFileLocalPath = m_localRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
 #endif
     }
 
@@ -52,32 +41,15 @@ public class HotUpdate : MonoBehaviour
     {
         if(m_GameLoadingPanel != null)
         {
-            bool isEnd = false;
-
 #if UNITY_EDITOR
-            m_time = m_time + Time.deltaTime;
-
-            m_GameLoadingPanel.SetProgressSlider(m_time / m_needDownloadNum);
-
-            isEnd = m_time >= m_needDownloadNum;
-
-#else
-            m_GameLoadingPanel.SetProgressSlider(m_nowDownloadNum * 1.0f / m_needDownloadNum);
-
-            isEnd = m_nowDownloadNum >= m_needDownloadNum;
+            m_nowDownloadNum += Time.deltaTime;
 #endif
 
-            if (isEnd)
+            m_GameLoadingPanel.SetProgressSlider(m_nowDownloadNum / m_needDownloadNum);
+
+            if (m_nowDownloadNum >= m_needDownloadNum)
             {
-                m_time = 0;
-
-                m_nowDownloadNum = 0;
-
-                m_needDownloadNum = -1;
-
                 m_launcher.PlayGame();
-
-                Destroy(m_GameLoadingPanel.gameObject);
             }
         }
     }
@@ -112,19 +84,19 @@ public class HotUpdate : MonoBehaviour
         {
             string downloadCatalogueText = requestHandler.downloadHandler.text;
 
-            using (FileStream fs = new FileStream(m_catalogueFileLocalURL, FileMode.OpenOrCreate))
+            using (FileStream fileStream = new FileStream(m_catalogueFileLocalPath, FileMode.OpenOrCreate))
             {
-                using (StreamReader sr = new StreamReader(fs))
+                using (StreamReader streamReader = new StreamReader(fileStream))
                 {
                     m_nowDownloadNum = 0;
 
-                    string localCatalogueText = sr.ReadToEnd();
+                    string localCatalogueText = streamReader.ReadToEnd();
 
                     if (string.IsNullOrEmpty(localCatalogueText))
                     {
-                        using (StreamWriter sw = new StreamWriter(fs))
+                        using (StreamWriter streamWriter = new StreamWriter(fileStream))
                         {
-                            sw.Write(downloadCatalogueText);
+                            streamWriter.Write(downloadCatalogueText);
 
                             string[] filePath = downloadCatalogueText.Split('|', '\n');
 
@@ -136,16 +108,7 @@ public class HotUpdate : MonoBehaviour
                                 {
                                     if (i % 2 == 0)
                                     {
-                                        if (filePath[i].Contains("/Lua/"))
-                                        {
-                                            int startIndex = filePath[i].IndexOf("/Lua/") + 4;
-                                            StartCoroutine(DownloadWebFile("Lua", filePath[i].Substring(startIndex, filePath[i].Length - startIndex)));
-                                        }
-                                        else if (filePath[i].Contains("/AssetBundles/"))
-                                        {
-                                            int startIndex = filePath[i].IndexOf("/AssetBundles/") + 13;
-                                            StartCoroutine(DownloadWebFile("AssetBundles", filePath[i].Substring(startIndex, filePath[i].Length - startIndex)));
-                                        }
+                                        StartCoroutine(DownloadWebFile(filePath[i]));
                                     }
                                 }
                             }
@@ -153,13 +116,13 @@ public class HotUpdate : MonoBehaviour
                     }
                     else
                     {
-                        using (StreamWriter sw = new StreamWriter(fs))
+                        using (StreamWriter streamWriter = new StreamWriter(fileStream))
                         {
                             JudgeNeedDownloadFileNum(downloadCatalogueText, localCatalogueText);
 
                             CompareLocalAndWebFile(downloadCatalogueText, localCatalogueText);
 
-                            sw.Write(downloadCatalogueText);
+                            streamWriter.Write(downloadCatalogueText);
                         }
                     }
                 }
@@ -232,23 +195,14 @@ public class HotUpdate : MonoBehaviour
         {
             if (!localFilePath2.ContainsKey(key) || (localFilePath2.ContainsKey(key) && localFilePath2[key] != webFilePath2[key]))
             {
-                if (key.Contains("/Lua/"))
-                {
-                    int startIndex = key.IndexOf("/Lua/") + 4;
-                    StartCoroutine(DownloadWebFile("Lua", key.Substring(startIndex, key.Length - startIndex)));
-                }
-                else if (key.Contains("/AssetBundles/"))
-                {
-                    int startIndex = key.IndexOf("/AssetBundles/") + 13;
-                    StartCoroutine(DownloadWebFile("AssetBundles", key.Substring(startIndex, key.Length - startIndex)));
-                }
+                StartCoroutine(key);
             }
         }
     }
 
-    private IEnumerator DownloadWebFile(string type, string path)
+    private IEnumerator DownloadWebFile(string path)
     {
-        UnityWebRequest requestHandler = UnityWebRequest.Get(m_catalogueFileWebURL.Substring(0, m_catalogueFileWebURL.Length - 17) + type + path);//下载路径需要加上文件的后缀，没有后缀则不加
+        UnityWebRequest requestHandler = UnityWebRequest.Get(m_webRootPath + path);//下载路径需要加上文件的后缀，没有后缀则不加
 
         yield return requestHandler.SendWebRequest();
 
@@ -258,9 +212,12 @@ public class HotUpdate : MonoBehaviour
         }
         else
         {
-            using (FileStream fs = new FileStream(m_catalogueFileLocalURL.Substring(0, m_catalogueFileLocalURL.Length - 17) + type + path, FileMode.Create))
+            using (FileStream fileStream = new FileStream(m_localRootPath + path, FileMode.Create))
             {
-                fs.Write(requestHandler.downloadHandler.data, 0, requestHandler.downloadHandler.data.Length);
+                using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
+                {
+                    binaryWriter.Write(requestHandler.downloadHandler.data);
+                }
             }
 
             m_nowDownloadNum++;

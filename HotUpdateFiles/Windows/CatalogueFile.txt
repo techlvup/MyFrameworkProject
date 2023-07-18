@@ -1,5 +1,0 @@
-Assets/Lua/Workflow/Launcher.lua|2771F7EF145E5AD7B85A553EB67E629E
-HotUpdateFiles/Windows/AssetBundles/AssetBundles|8A421126AA8A3606F51A0409DEFAC48E
-HotUpdateFiles/Windows/AssetBundles/AssetBundles.manifest|A293AADE1CAC7C03EDFBBF6E281F9D69
-HotUpdateFiles/Windows/AssetBundles/test.ab|5EEFF827299491CC72A2705BB82718B5
-HotUpdateFiles/Windows/AssetBundles/test.ab.manifest|A2CFE0F85A899064B70CC9D4F9B43138

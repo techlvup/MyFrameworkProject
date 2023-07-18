@@ -2,21 +2,19 @@
 
 public class Launcher : MonoBehaviour
 {
-    private HotUpdate m_hotUpdate = null;//热更新脚本
+    private HotUpdate m_hotUpdate = null;//负责热更新流程的脚本
 
 
 
     private void Awake()
     {
-        LuaManager.Start();
-
         m_hotUpdate = gameObject.GetComponent<HotUpdate>();
         m_hotUpdate.StartHotUpdate();
     }
 
     private void OnDestroy()
     {
-        LuaManager.Destroy();
+        LuaManager.Stop();
     }
 
 
@@ -29,9 +27,6 @@ public class Launcher : MonoBehaviour
             m_hotUpdate = null;
         }
 
-        if (LuaManager.m_playGameFunc != null)
-        {
-            LuaManager.m_playGameFunc.Call();
-        }
+        LuaManager.Play();
     }
 }

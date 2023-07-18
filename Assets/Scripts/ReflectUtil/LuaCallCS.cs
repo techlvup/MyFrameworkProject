@@ -167,12 +167,4 @@ public static partial class LuaCallCS
 
         return go;
     }
-
-    public static void SetPlayGameFunc(LuaFunction playGameFunc)
-    {
-        if (LuaManager.m_playGameFunc == null)
-        {
-            LuaManager.m_playGameFunc = playGameFunc;
-        }
-    }
 }

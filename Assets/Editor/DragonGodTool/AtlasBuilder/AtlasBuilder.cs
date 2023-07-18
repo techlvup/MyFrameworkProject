@@ -138,10 +138,10 @@ public class AtlasBuilder
 
             AssetDatabase.Refresh();
 
-            TextureImporter importer = AssetImporter.GetAtPath(m_atlasRootPath.Replace(Application.dataPath, "Assets") + "/" + atlasName + "/" + atlasName + ".png") as TextureImporter;
+            TextureImporter atlasImporter = AssetImporter.GetAtPath(m_atlasRootPath.Replace(Application.dataPath, "Assets") + "/" + atlasName + "/" + atlasName + ".png") as TextureImporter;
 
-            importer.textureType = TextureImporterType.Sprite;
-            importer.spriteImportMode = SpriteImportMode.Multiple;
+            atlasImporter.textureType = TextureImporterType.Sprite;
+            atlasImporter.spriteImportMode = SpriteImportMode.Multiple;
 
             List<SpriteMetaData> spriteMetaDatas = new List<SpriteMetaData>();
 
@@ -160,19 +160,31 @@ public class AtlasBuilder
                 EditorUtility.DisplayProgressBar("设置" + atlasName + "图集ImporterSetting中......", "进度：" + i + "/" + textures.Length, i * 1.0f / textures.Length);
             }
 
-            importer.spritesheet = spriteMetaDatas.ToArray();
+            atlasImporter.spritesheet = spriteMetaDatas.ToArray();
 
-            EditorUtility.SetDirty(importer);
+            EditorUtility.SetDirty(atlasImporter);
 
-            importer.SaveAndReimport();
+            atlasImporter.assetBundleName = "atlas/" + atlasName;
+            atlasImporter.assetBundleVariant = "atlas";
+
+            atlasImporter.SaveAndReimport();
 
             //创建图集的材质
+            string materialPath = m_atlasRootPath.Replace(Application.dataPath, "Assets") + "/" + atlasName + "/" + atlasName + "Material.mat";
+
             Material material = new Material(Shader.Find("UI/Default"));
-            AssetDatabase.CreateAsset(material, m_atlasRootPath.Replace(Application.dataPath, "Assets") + "/" + atlasName + "/" + atlasName + "Material.mat");
+            AssetDatabase.CreateAsset(material, materialPath);
 
             //设置材质属性
             material.enableInstancing = true;//打开GPU实例化，提高性能
             material.mainTexture = atlas;//把图集纹理设置为材质的主纹理
+
+            AssetDatabase.Refresh();
+
+            AssetImporter materialImporter = AssetImporter.GetAtPath(materialPath);
+
+            materialImporter.assetBundleName = "atlas/" + atlasName + "Material";
+            materialImporter.assetBundleVariant = "mat";
 
             progressIndex++;
 

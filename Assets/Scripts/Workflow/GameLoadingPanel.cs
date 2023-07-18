@@ -20,7 +20,7 @@ public class GameLoadingPanel : MonoBehaviour
     {
         m_sliProgress.value = value;
 
-        if(value == 1)
+        if(value >= 1)
         {
             Destroy(gameObject);
         }

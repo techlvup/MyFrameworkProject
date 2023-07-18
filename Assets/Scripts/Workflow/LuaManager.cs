@@ -1,14 +1,12 @@
-﻿using UnityEngine;
-using LuaInterface;
+﻿using LuaInterface;
 
 public class LuaManager
 {
     public static LuaState m_luaState = null;//Lua的虚拟机
-    public static LuaFunction m_playGameFunc = null;
 
 
 
-    public static void Start()
+    public static void Play()
     {
         if (m_luaState != null)
         {
@@ -26,13 +24,11 @@ public class LuaManager
         m_luaState.DoFile("Workflow/Main.lua");//写绝对路径或者是以Lua文件夹下的文件或文件夹开头的路径
     }
 
-    public static void Destroy()
+    public static void Stop()
     {
         if (m_luaState != null)
         {
             m_luaState.Dispose();
         }
-
-        Debug.Log("销毁虚拟机");
     }
 }

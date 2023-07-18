@@ -74,7 +74,7 @@ MonoBehaviour:
   m_MinSize: {x: 204, y: 448}
   m_MaxSize: {x: 4004, y: 8048}
   vertical: 1
-  controlID: 25
+  controlID: 76
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -125,7 +125,7 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 398}
   m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 44
+  controlID: 95
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -171,8 +171,8 @@ MonoBehaviour:
     y: 0
     width: 352
     height: 828
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 279, y: 74}
+  m_MaxSize: {x: 4004, y: 4024}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 16}
@@ -197,8 +197,8 @@ MonoBehaviour:
     y: 0
     width: 219
     height: 828
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 224}
+  m_MaxSize: {x: 4004, y: 4024}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -317,8 +317,8 @@ MonoBehaviour:
     y: 0
     width: 723
     height: 371
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 204, y: 224}
+  m_MaxSize: {x: 4004, y: 4024}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -389,20 +389,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Resources/Atlas/Atlas01
+    - Assets/Scripts/Workflow
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/Resources/Atlas/Atlas01
+  - Assets/Scripts/Workflow
   m_LastFoldersGridSize: 16
   m_LastProjectPath: F:\UnityProjects\MyFrameworkProject\MyFrameworkProject
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b82f0000
-    m_LastClickedID: 12216
-    m_ExpandedIDs: 00000000b628000000290000182900003229000056290000142a0000722a0000b62a0000282b0000822c0000842c0000cc2c0000f62c00001a2d00003c2d0000382e00003a2e00003c2e0000762f000000ca9a3b
+    scrollPos: {x: 0, y: 120}
+    m_SelectedIDs: 3e2d0000
+    m_LastClickedID: 11582
+    m_ExpandedIDs: 00000000c42800001029000028290000442900006e290000a4290000f2290000382a00009e2a0000e82a0000622b0000fa2c0000fc2c0000642d0000c42d0000ea2d0000122e0000102f0000122f0000142f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -430,7 +430,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000b628000000290000182900003229000056290000142a0000722a0000b62a00001e2b0000282b0000822c0000842c0000cc2c0000f62c00001a2d00003c2d0000382e00003a2e00003c2e0000
+    m_ExpandedIDs: 00000000c42800001029000028290000442900006e290000a4290000f2290000382a00009e2a0000e82a0000622b0000fa2c0000fc2c0000642d0000c42d0000ea2d0000122e0000102f0000122f0000142f0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -461,18 +461,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: Launcher
+      m_OriginalName: Launcher
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: 9728
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 6}
     m_CreateAssetUtility:
@@ -549,9 +549,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
+      m_SelectedIDs: 3e2d0000
       m_LastClickedID: 0
-      m_ExpandedIDs: 86abffffe6acffff90c0ffffc0c8ffff7ccffffff6d3ffff6ad5ffff7cd6ffffcad7ffff0ed9ffff2addffffe6e1ffffa4e2ffff74e3ffff9ce3ffffaae3ffffdefbfffff42d0000
+      m_ExpandedIDs: d8f9ffffc4fbffffcc2e0000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 

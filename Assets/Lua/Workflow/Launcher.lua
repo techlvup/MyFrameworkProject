@@ -1,4 +1,4 @@
----@class LuaCallCS
+---@class Launcher
 local Launcher = {}
 
 function Launcher.PlayGame()
@@ -14,4 +14,4 @@ function Launcher.PlayGame()
     local v = 5
 end
 
-LuaCallCS.SetPlayGameFunc(Launcher.PlayGame)
+Launcher.PlayGame()
