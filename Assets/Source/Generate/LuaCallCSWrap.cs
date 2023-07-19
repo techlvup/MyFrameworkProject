@@ -13,6 +13,12 @@ public class LuaCallCSWrap
 		L.RegFunction("GetComponent", GetComponent);
 		L.RegFunction("AddComponent", AddComponent);
 		L.RegFunction("Clone", Clone);
+		L.RegFunction("PlayPositionAnimation", PlayPositionAnimation);
+		L.RegFunction("PlayRotationAnimation", PlayRotationAnimation);
+		L.RegFunction("PlayScaleAnimation", PlayScaleAnimation);
+		L.RegFunction("PlayAlphaAnimation", PlayAlphaAnimation);
+		L.RegFunction("PlayCurveAnimation", PlayCurveAnimation);
+		L.RegFunction("PlaySequentialAnimation", PlaySequentialAnimation);
 		L.RegFunction("AddClickListener", AddClickListener);
 		L.RegFunction("ReleaseClickListener", ReleaseClickListener);
 		L.RegFunction("AddDownListener", AddDownListener);
@@ -191,6 +197,700 @@ public class LuaCallCSWrap
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.Clone");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PlayPositionAnimation(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				DG.Tweening.Tweener o = LuaCallCS.PlayPositionAnimation(arg0);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				DG.Tweening.Tweener o = LuaCallCS.PlayPositionAnimation(arg0, arg1);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				DG.Tweening.Tweener o = LuaCallCS.PlayPositionAnimation(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				DG.Tweening.Tweener o = LuaCallCS.PlayPositionAnimation(arg0, arg1, arg2, arg3);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				DG.Tweening.Tweener o = LuaCallCS.PlayPositionAnimation(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				DG.Tweening.Tweener o = LuaCallCS.PlayPositionAnimation(arg0, arg1, arg2, arg3, arg4, arg5);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 7)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				DG.Tweening.Tweener o = LuaCallCS.PlayPositionAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 8)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.Tweener o = LuaCallCS.PlayPositionAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 9)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.LoopType arg8 = (DG.Tweening.LoopType)ToLua.CheckObject(L, 9, typeof(DG.Tweening.LoopType));
+				DG.Tweening.Tweener o = LuaCallCS.PlayPositionAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 10)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.LoopType arg8 = (DG.Tweening.LoopType)ToLua.CheckObject(L, 9, typeof(DG.Tweening.LoopType));
+				DG.Tweening.Ease arg9 = (DG.Tweening.Ease)ToLua.CheckObject(L, 10, typeof(DG.Tweening.Ease));
+				DG.Tweening.Tweener o = LuaCallCS.PlayPositionAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.PlayPositionAnimation");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PlayRotationAnimation(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				DG.Tweening.Tweener o = LuaCallCS.PlayRotationAnimation(arg0);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				DG.Tweening.Tweener o = LuaCallCS.PlayRotationAnimation(arg0, arg1);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				DG.Tweening.Tweener o = LuaCallCS.PlayRotationAnimation(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				DG.Tweening.Tweener o = LuaCallCS.PlayRotationAnimation(arg0, arg1, arg2, arg3);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				DG.Tweening.Tweener o = LuaCallCS.PlayRotationAnimation(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				DG.Tweening.Tweener o = LuaCallCS.PlayRotationAnimation(arg0, arg1, arg2, arg3, arg4, arg5);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 7)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				DG.Tweening.Tweener o = LuaCallCS.PlayRotationAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 8)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.Tweener o = LuaCallCS.PlayRotationAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 9)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.LoopType arg8 = (DG.Tweening.LoopType)ToLua.CheckObject(L, 9, typeof(DG.Tweening.LoopType));
+				DG.Tweening.Tweener o = LuaCallCS.PlayRotationAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 10)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.LoopType arg8 = (DG.Tweening.LoopType)ToLua.CheckObject(L, 9, typeof(DG.Tweening.LoopType));
+				DG.Tweening.Ease arg9 = (DG.Tweening.Ease)ToLua.CheckObject(L, 10, typeof(DG.Tweening.Ease));
+				DG.Tweening.Tweener o = LuaCallCS.PlayRotationAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.PlayRotationAnimation");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PlayScaleAnimation(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				DG.Tweening.Tweener o = LuaCallCS.PlayScaleAnimation(arg0);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				DG.Tweening.Tweener o = LuaCallCS.PlayScaleAnimation(arg0, arg1);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				DG.Tweening.Tweener o = LuaCallCS.PlayScaleAnimation(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				DG.Tweening.Tweener o = LuaCallCS.PlayScaleAnimation(arg0, arg1, arg2, arg3);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				DG.Tweening.Tweener o = LuaCallCS.PlayScaleAnimation(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				DG.Tweening.Tweener o = LuaCallCS.PlayScaleAnimation(arg0, arg1, arg2, arg3, arg4, arg5);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 7)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				DG.Tweening.Tweener o = LuaCallCS.PlayScaleAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 8)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.Tweener o = LuaCallCS.PlayScaleAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 9)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.LoopType arg8 = (DG.Tweening.LoopType)ToLua.CheckObject(L, 9, typeof(DG.Tweening.LoopType));
+				DG.Tweening.Tweener o = LuaCallCS.PlayScaleAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 10)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Vector3 arg2 = ToLua.ToVector3(L, 3);
+				UnityEngine.Vector3 arg3 = ToLua.ToVector3(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.LoopType arg8 = (DG.Tweening.LoopType)ToLua.CheckObject(L, 9, typeof(DG.Tweening.LoopType));
+				DG.Tweening.Ease arg9 = (DG.Tweening.Ease)ToLua.CheckObject(L, 10, typeof(DG.Tweening.Ease));
+				DG.Tweening.Tweener o = LuaCallCS.PlayScaleAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.PlayScaleAnimation");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PlayAlphaAnimation(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				DG.Tweening.Tweener o = LuaCallCS.PlayAlphaAnimation(arg0);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				DG.Tweening.Tweener o = LuaCallCS.PlayAlphaAnimation(arg0, arg1);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+				DG.Tweening.Tweener o = LuaCallCS.PlayAlphaAnimation(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				DG.Tweening.Tweener o = LuaCallCS.PlayAlphaAnimation(arg0, arg1, arg2, arg3);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				DG.Tweening.Tweener o = LuaCallCS.PlayAlphaAnimation(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				DG.Tweening.Tweener o = LuaCallCS.PlayAlphaAnimation(arg0, arg1, arg2, arg3, arg4, arg5);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 7)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				DG.Tweening.Tweener o = LuaCallCS.PlayAlphaAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 8)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.Tweener o = LuaCallCS.PlayAlphaAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 9)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.LoopType arg8 = (DG.Tweening.LoopType)ToLua.CheckObject(L, 9, typeof(DG.Tweening.LoopType));
+				DG.Tweening.Tweener o = LuaCallCS.PlayAlphaAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 10)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				float arg2 = (float)LuaDLL.luaL_checknumber(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				float arg4 = (float)LuaDLL.luaL_checknumber(L, 5);
+				LuaFunction arg5 = ToLua.CheckLuaFunction(L, 6);
+				float arg6 = (float)LuaDLL.luaL_checknumber(L, 7);
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.LoopType arg8 = (DG.Tweening.LoopType)ToLua.CheckObject(L, 9, typeof(DG.Tweening.LoopType));
+				DG.Tweening.Ease arg9 = (DG.Tweening.Ease)ToLua.CheckObject(L, 10, typeof(DG.Tweening.Ease));
+				DG.Tweening.Tweener o = LuaCallCS.PlayAlphaAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.PlayAlphaAnimation");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PlayCurveAnimation(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				DG.Tweening.Tweener o = LuaCallCS.PlayCurveAnimation(arg0);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				DG.Tweening.Tweener o = LuaCallCS.PlayCurveAnimation(arg0, arg1);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaTable arg2 = ToLua.CheckLuaTable(L, 3);
+				DG.Tweening.Tweener o = LuaCallCS.PlayCurveAnimation(arg0, arg1, arg2);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaTable arg2 = ToLua.CheckLuaTable(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				DG.Tweening.Tweener o = LuaCallCS.PlayCurveAnimation(arg0, arg1, arg2, arg3);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 5)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaTable arg2 = ToLua.CheckLuaTable(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				LuaFunction arg4 = ToLua.CheckLuaFunction(L, 5);
+				DG.Tweening.Tweener o = LuaCallCS.PlayCurveAnimation(arg0, arg1, arg2, arg3, arg4);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 6)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaTable arg2 = ToLua.CheckLuaTable(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				LuaFunction arg4 = ToLua.CheckLuaFunction(L, 5);
+				float arg5 = (float)LuaDLL.luaL_checknumber(L, 6);
+				DG.Tweening.Tweener o = LuaCallCS.PlayCurveAnimation(arg0, arg1, arg2, arg3, arg4, arg5);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 7)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaTable arg2 = ToLua.CheckLuaTable(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				LuaFunction arg4 = ToLua.CheckLuaFunction(L, 5);
+				float arg5 = (float)LuaDLL.luaL_checknumber(L, 6);
+				DG.Tweening.PathType arg6 = (DG.Tweening.PathType)ToLua.CheckObject(L, 7, typeof(DG.Tweening.PathType));
+				DG.Tweening.Tweener o = LuaCallCS.PlayCurveAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 8)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaTable arg2 = ToLua.CheckLuaTable(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				LuaFunction arg4 = ToLua.CheckLuaFunction(L, 5);
+				float arg5 = (float)LuaDLL.luaL_checknumber(L, 6);
+				DG.Tweening.PathType arg6 = (DG.Tweening.PathType)ToLua.CheckObject(L, 7, typeof(DG.Tweening.PathType));
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.Tweener o = LuaCallCS.PlayCurveAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 9)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaTable arg2 = ToLua.CheckLuaTable(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				LuaFunction arg4 = ToLua.CheckLuaFunction(L, 5);
+				float arg5 = (float)LuaDLL.luaL_checknumber(L, 6);
+				DG.Tweening.PathType arg6 = (DG.Tweening.PathType)ToLua.CheckObject(L, 7, typeof(DG.Tweening.PathType));
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.LoopType arg8 = (DG.Tweening.LoopType)ToLua.CheckObject(L, 9, typeof(DG.Tweening.LoopType));
+				DG.Tweening.Tweener o = LuaCallCS.PlayCurveAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else if (count == 10)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaTable arg2 = ToLua.CheckLuaTable(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				LuaFunction arg4 = ToLua.CheckLuaFunction(L, 5);
+				float arg5 = (float)LuaDLL.luaL_checknumber(L, 6);
+				DG.Tweening.PathType arg6 = (DG.Tweening.PathType)ToLua.CheckObject(L, 7, typeof(DG.Tweening.PathType));
+				int arg7 = (int)LuaDLL.luaL_checknumber(L, 8);
+				DG.Tweening.LoopType arg8 = (DG.Tweening.LoopType)ToLua.CheckObject(L, 9, typeof(DG.Tweening.LoopType));
+				DG.Tweening.Ease arg9 = (DG.Tweening.Ease)ToLua.CheckObject(L, 10, typeof(DG.Tweening.Ease));
+				DG.Tweening.Tweener o = LuaCallCS.PlayCurveAnimation(arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9);
+				ToLua.PushObject(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.PlayCurveAnimation");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PlaySequentialAnimation(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 0)
+			{
+				LuaCallCS.PlaySequentialAnimation();
+				return 0;
+			}
+			else if (count == 1)
+			{
+				LuaTable arg0 = ToLua.CheckLuaTable(L, 1);
+				LuaCallCS.PlaySequentialAnimation(arg0);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.PlaySequentialAnimation");
 			}
 		}
 		catch (Exception e)

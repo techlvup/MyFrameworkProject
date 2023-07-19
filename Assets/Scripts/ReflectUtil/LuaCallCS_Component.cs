@@ -149,14 +149,14 @@ public static partial class LuaCallCS
     {
         GameObject gameObject = GetGameObject(obj);
 
-        if(gameObject == null)
+        if (gameObject == null)
         {
             return;
         }
 
         Image image = gameObject.GetComponent<Image>();
 
-        if(image == null)
+        if (image == null)
         {
             RawImage rawImage = gameObject.GetComponent<RawImage>();
 
@@ -166,11 +166,11 @@ public static partial class LuaCallCS
 
                 GameObject.Destroy(rawImage);
 
-                CircleRawImage circleRawImage =  gameObject.AddComponent<CircleRawImage>();
+                CircleRawImage circleRawImage = gameObject.AddComponent<CircleRawImage>();
 
                 circleRawImage.texture = texture;
 
-                if(isSetNativeSize)
+                if (isSetNativeSize)
                 {
                     circleRawImage.SetNativeSize();
                 }
@@ -243,14 +243,14 @@ public static partial class LuaCallCS
 
     public static void SetSpriteImage(UnityEngine.Object obj, string childPath = "", string spritePath = "", bool isSetNativeSize = false)
     {
-        if(string.IsNullOrEmpty(spritePath))
+        if (string.IsNullOrEmpty(spritePath))
         {
             return;
         }
 
         Transform trans = GetTransform(obj);
 
-        if(!string.IsNullOrEmpty(childPath))
+        if (!string.IsNullOrEmpty(childPath))
         {
             trans = trans.Find(childPath);
         }
@@ -266,6 +266,7 @@ public static partial class LuaCallCS
             if (spriteInfo[0] == spriteInfo[1])
             {
                 sprite = Resources.Load<Sprite>("Png/" + spriteInfo[1]);
+                image.material = null;
             }
             else if (GetTextureRectByAtlasName(spriteInfo[0], spriteInfo[1], out float[] rect))
             {
@@ -280,18 +281,15 @@ public static partial class LuaCallCS
 
                 Material material = Resources.Load<Material>("Atlas/" + spriteInfo[0] + "/" + spriteInfo[0] + "Material");
 
-                material.enableInstancing = true;//打开GPU实例化，提高性能
-                material.mainTexture = atlas;//把图集纹理设置为材质的主纹理
-
                 image.material = material;
             }
 
-            if(sprite != null)
+            if (sprite != null)
             {
                 image.sprite = sprite;
             }
 
-            if(isSetNativeSize)
+            if (isSetNativeSize)
             {
                 SetSpriteImageNativeSize(image);
             }
@@ -328,6 +326,7 @@ public static partial class LuaCallCS
             if (spriteInfo[0] == spriteInfo[1])
             {
                 sprite = Resources.Load<Sprite>("Png/" + spriteInfo[1]);
+                rawImage.material = null;
             }
             else if (GetTextureRectByAtlasName(spriteInfo[0], spriteInfo[1], out float[] rect))
             {
@@ -341,9 +340,6 @@ public static partial class LuaCallCS
                 sprite = Sprite.Create(atlas, new Rect(x, y, width, height), new Vector2(0.5f, 0.5f));
 
                 Material material = Resources.Load<Material>("Atlas/" + spriteInfo[0] + "/" + spriteInfo[0] + "Material");
-
-                material.enableInstancing = true;//打开GPU实例化，提高性能
-                material.mainTexture = atlas;//把图集纹理设置为材质的主纹理
 
                 rawImage.material = material;
             }

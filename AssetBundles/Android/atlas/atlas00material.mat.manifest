@@ -1,18 +1,21 @@
 ManifestFileVersion: 0
-CRC: 3197048663
+CRC: 503797961
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: b8281a63f495dca9fcee0830c2dc0a07
+    Hash: 3d9a543a348c900290518da01f07036f
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 51a16e16d5113854a16091e54ae5bb0d
+    Hash: fe397485c3cec1106b49e9ff95e8f8a2
 HashAppended: 0
 ClassTypes:
 - Class: 21
+  Script: {instanceID: 0}
+- Class: 28
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
 Assets:
 - Assets/Resources/Atlas/Atlas00/Atlas00Material.mat
-Dependencies: []
+Dependencies:
+- F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/AssetBundles/Android/atlas/atlas00.atlas

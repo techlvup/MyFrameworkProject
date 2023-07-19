@@ -6,12 +6,13 @@ using UnityEditor;
 using BindType = ToLuaMenu.BindType;
 using System.Reflection;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public static class CustomSettings
 {
     public static string saveDir = Application.dataPath + "/Source/Generate/";
     public static string toluaBaseType = Application.dataPath + "/ToLua/BaseType/";
-    public static string baseLuaDir = Application.dataPath + "/ToLua/Lua/";
+    public static string baseLuaDir = Application.dataPath + "/Lua/ToLua/";
     public static string injectionFilesPath = Application.dataPath + "/ToLua/Injection/";
 
     //导出时强制做为静态类的类型(注意customTypeList 还要添加这个类型才能导出)
@@ -174,6 +175,9 @@ public static class CustomSettings
         //添加需要映射的自定义脚本
         _GT(typeof(LuaCallCS)),
         _GT(typeof(PerfectButton)),
+        _GT(typeof(Ease)),
+        _GT(typeof(LoopType)),
+        _GT(typeof(PathType)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

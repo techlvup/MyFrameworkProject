@@ -82,6 +82,7 @@
      <Compile Include="Assets\EasyTouch\EasyTouchControls\Plugins\ETCJoystick.cs" />
      <Compile Include="Assets\EasyTouch\EasyTouchControls\Plugins\ETCTouchPad.cs" />
      <Compile Include="Assets\Scripts\ReflectUtil\LuaCallCS.cs" />
+     <Compile Include="Assets\Scripts\ReflectUtil\LuaCallCS_Animation.cs" />
      <Compile Include="Assets\Scripts\ReflectUtil\LuaCallCS_Component.cs" />
      <Compile Include="Assets\Scripts\ReflectUtil\LuaCallCS_ConfigData.cs" />
      <Compile Include="Assets\Scripts\ReflectUtil\PerfectButton.cs" />
@@ -94,6 +95,9 @@
      <Compile Include="Assets\Scripts\Workflow\Launcher.cs" />
      <Compile Include="Assets\Scripts\Workflow\LuaManager.cs" />
      <Compile Include="Assets\Source\Generate\DelegateFactory.cs" />
+     <Compile Include="Assets\Source\Generate\DG_Tweening_EaseWrap.cs" />
+     <Compile Include="Assets\Source\Generate\DG_Tweening_LoopTypeWrap.cs" />
+     <Compile Include="Assets\Source\Generate\DG_Tweening_PathTypeWrap.cs" />
      <Compile Include="Assets\Source\Generate\LuaBinder.cs" />
      <Compile Include="Assets\Source\Generate\LuaCallCSWrap.cs" />
      <Compile Include="Assets\Source\Generate\LuaInterface_DebuggerWrap.cs" />

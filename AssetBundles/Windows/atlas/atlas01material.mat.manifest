@@ -1,18 +1,21 @@
 ManifestFileVersion: 0
-CRC: 464065602
+CRC: 886854912
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: a18091e7061092d78c41f2b55910ddf2
+    Hash: c58b66d8405e8659a7d16d3a06e0dcb2
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 51a16e16d5113854a16091e54ae5bb0d
+    Hash: fe397485c3cec1106b49e9ff95e8f8a2
 HashAppended: 0
 ClassTypes:
 - Class: 21
+  Script: {instanceID: 0}
+- Class: 28
   Script: {instanceID: 0}
 - Class: 48
   Script: {instanceID: 0}
 Assets:
 - Assets/Resources/Atlas/Atlas01/Atlas01Material.mat
-Dependencies: []
+Dependencies:
+- F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/AssetBundles/Windows/atlas/atlas01.atlas

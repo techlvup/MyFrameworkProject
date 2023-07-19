@@ -151,6 +151,13 @@ public static class LuaBinder
 		L.RegFunction("ReapplyDrivenProperties", UnityEngine_RectTransform_ReapplyDrivenProperties);
 		L.EndModule();
 		L.EndModule();
+		L.BeginModule("DG");
+		L.BeginModule("Tweening");
+		DG_Tweening_EaseWrap.Register(L);
+		DG_Tweening_LoopTypeWrap.Register(L);
+		DG_Tweening_PathTypeWrap.Register(L);
+		L.EndModule();
+		L.EndModule();
 		L.BeginModule("System");
 		L.RegFunction("Action", System_Action);
 		L.RegFunction("Predicate_int", System_Predicate_int);
