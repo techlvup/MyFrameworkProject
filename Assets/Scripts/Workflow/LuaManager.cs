@@ -1,8 +1,12 @@
 ﻿using LuaInterface;
+using System.Collections.Generic;
+
+
 
 public class LuaManager
 {
     public static LuaState m_luaState = null;//Lua的虚拟机
+    public static Dictionary<string, LuaTable> m_luaClassList;//所有预制体对应的lua脚本
 
 
 
@@ -12,6 +16,8 @@ public class LuaManager
         {
             return;
         }
+
+        m_luaClassList = new Dictionary<string, LuaTable>();
 
         new LuaResLoader();//加载Lua文件
 
@@ -29,6 +35,11 @@ public class LuaManager
         if (m_luaState != null)
         {
             m_luaState.Dispose();
+        }
+
+        if(m_luaClassList != null)
+        {
+            m_luaClassList.Clear();
         }
     }
 }

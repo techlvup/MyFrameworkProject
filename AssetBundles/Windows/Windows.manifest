@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 445500361
+CRC: 3729467552
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -23,3 +23,20 @@ AssetBundleManifest:
       Name: atlas/atlas02material.mat
       Dependencies:
         Dependency_0: atlas/atlas02.atlas
+    Info_6:
+      Name: atlas/bg_hghg_wdtx1.atlas
+      Dependencies: {}
+    Info_7:
+      Name: atlas/bg_hghg_wdtx2.atlas
+      Dependencies: {}
+    Info_8:
+      Name: atlas/bg_hghg_wdtx3.atlas
+      Dependencies: {}
+    Info_9:
+      Name: prefab/gameloadingpanel.prefab
+      Dependencies:
+        Dependency_0: atlas/bg_hghg_wdtx1.atlas
+    Info_10:
+      Name: prefab/loginpanel.prefab
+      Dependencies:
+        Dependency_0: atlas/bg_hghg_wdtx2.atlas

@@ -13,6 +13,7 @@ public static class LuaBinder
 		LuaProfilerWrap.Register(L);
 		LuaCallCSWrap.Register(L);
 		PerfectButtonWrap.Register(L);
+		PrefabInstanceWrap.Register(L);
 		L.BeginModule("LuaInterface");
 		LuaInterface_LuaInjectionStationWrap.Register(L);
 		LuaInterface_InjectTypeWrap.Register(L);

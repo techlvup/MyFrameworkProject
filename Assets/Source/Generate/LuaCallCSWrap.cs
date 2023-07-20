@@ -9,10 +9,13 @@ public class LuaCallCSWrap
 		L.BeginStaticLibs("LuaCallCS");
 		L.RegFunction("GetGameObject", GetGameObject);
 		L.RegFunction("GetTransform", GetTransform);
+		L.RegFunction("OpenPrefabPanel", OpenPrefabPanel);
+		L.RegFunction("ClosePrefabPanel", ClosePrefabPanel);
 		L.RegFunction("CreateGameObject", CreateGameObject);
 		L.RegFunction("GetComponent", GetComponent);
 		L.RegFunction("AddComponent", AddComponent);
 		L.RegFunction("Clone", Clone);
+		L.RegFunction("SetActive", SetActive);
 		L.RegFunction("PlayPositionAnimation", PlayPositionAnimation);
 		L.RegFunction("PlayRotationAnimation", PlayRotationAnimation);
 		L.RegFunction("PlayScaleAnimation", PlayScaleAnimation);
@@ -52,6 +55,9 @@ public class LuaCallCSWrap
 		L.RegFunction("GetConfigListKeysByName", GetConfigListKeysByName);
 		L.RegFunction("GetConfigLuaTableKeysByName", GetConfigLuaTableKeysByName);
 		L.RegFunction("GetTextureRectByAtlasName", GetTextureRectByAtlasName);
+		L.RegFunction("SendMessage", SendMessage);
+		L.RegFunction("BindReceiveMessage", BindReceiveMessage);
+		L.RegFunction("UnbindReceiveMessage", UnbindReceiveMessage);
 		L.RegVar("m_configPath", get_m_configPath, set_m_configPath);
 		L.EndStaticLibs();
 	}
@@ -83,6 +89,40 @@ public class LuaCallCSWrap
 			UnityEngine.Transform o = LuaCallCS.GetTransform(arg0);
 			ToLua.Push(L, o);
 			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int OpenPrefabPanel(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			string arg0 = ToLua.CheckString(L, 1);
+			string arg1 = ToLua.CheckString(L, 2);
+			LuaInterface.LuaTable o = LuaCallCS.OpenPrefabPanel(arg0, arg1);
+			ToLua.Push(L, o);
+			return 1;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int ClosePrefabPanel(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 1);
+			string arg0 = ToLua.CheckString(L, 1);
+			LuaCallCS.ClosePrefabPanel(arg0);
+			return 0;
 		}
 		catch (Exception e)
 		{
@@ -197,6 +237,52 @@ public class LuaCallCSWrap
 			else
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.Clone");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetActive(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				LuaCallCS.SetActive(arg0);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes<bool>(L, 2))
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				bool arg1 = LuaDLL.lua_toboolean(L, 2);
+				LuaCallCS.SetActive(arg0, arg1);
+				return 0;
+			}
+			else if (count == 2 && TypeChecker.CheckTypes<string>(L, 2))
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.ToString(L, 2);
+				LuaCallCS.SetActive(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				bool arg2 = LuaDLL.luaL_checkboolean(L, 3);
+				LuaCallCS.SetActive(arg0, arg1, arg2);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.SetActive");
 			}
 		}
 		catch (Exception e)
@@ -1615,6 +1701,57 @@ public class LuaCallCSWrap
 			LuaDLL.lua_pushboolean(L, o);
 			ToLua.Push(L, arg2);
 			return 2;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SendMessage(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			string arg0 = ToLua.CheckString(L, 1);
+			LuaTable arg1 = ToLua.CheckLuaTable(L, 2);
+			LuaCallCS.SendMessage(arg0, arg1);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int BindReceiveMessage(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			string arg0 = ToLua.CheckString(L, 1);
+			LuaFunction arg1 = ToLua.CheckLuaFunction(L, 2);
+			LuaCallCS.BindReceiveMessage(arg0, arg1);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int UnbindReceiveMessage(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 2);
+			string arg0 = ToLua.CheckString(L, 1);
+			LuaFunction arg1 = ToLua.CheckLuaFunction(L, 2);
+			LuaCallCS.UnbindReceiveMessage(arg0, arg1);
+			return 0;
 		}
 		catch (Exception e)
 		{

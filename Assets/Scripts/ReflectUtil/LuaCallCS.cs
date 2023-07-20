@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using LuaInterface;
 
+
+
 public static partial class LuaCallCS
 {
     public static GameObject GetGameObject(UnityEngine.Object obj)
@@ -37,6 +39,39 @@ public static partial class LuaCallCS
         }
 
         return null;
+    }
+
+    public static LuaTable OpenPrefabPanel(string prefabPath, string luaPath)
+    {
+        LuaTable luaClass;
+
+        int startIndex = prefabPath.LastIndexOf("/") + 1;
+        string prefabName = prefabPath.Substring(startIndex, prefabPath.Length - startIndex);
+
+        if (LuaManager.m_luaClassList.ContainsKey(prefabName))
+        {
+            luaClass = LuaManager.m_luaClassList[prefabName];
+        }
+        else
+        {
+            luaClass = LuaManager.m_luaState.DoFile<LuaTable>(luaPath);
+
+            LuaManager.m_luaClassList[prefabName] = luaClass;
+
+            GameObject obj = CreateGameObject(prefabPath, prefabName);
+
+            obj.AddComponent<PrefabInstance>();
+        }
+
+        return luaClass;
+    }
+
+    public static void ClosePrefabPanel(string prefabName)
+    {
+        if (LuaManager.m_luaClassList.ContainsKey(prefabName))
+        {
+            GameObject.Destroy((GameObject)LuaManager.m_luaClassList[prefabName]["gameObject"]);
+        }
     }
 
     public static GameObject CreateGameObject(string prefabPath, string name, UnityEngine.Object parent = null)
@@ -122,7 +157,7 @@ public static partial class LuaCallCS
         {
             Transform trans = gameObject.transform.Find(childPath);
 
-            if(trans == null)
+            if (trans == null)
             {
                 return null;
             }
@@ -132,16 +167,16 @@ public static partial class LuaCallCS
 
         Component component = gameObject.GetComponent(componentName);
 
-        if(component == null)
+        if (component == null)
         {
             Type type = Type.GetType(componentName);
 
-            if(type == null)
+            if (type == null)
             {
                 type = FindTypeTool.GetComponentType(componentName);
             }
 
-            if(type != null)
+            if (type != null)
             {
                 component = gameObject.AddComponent(type);
             }
@@ -152,19 +187,39 @@ public static partial class LuaCallCS
 
     public static GameObject Clone(UnityEngine.Object obj, string name = "cloneName", UnityEngine.Object parent = null)
     {
-        GameObject objTrans = GetGameObject(obj);
-        GameObject go = null;
+        GameObject item = GetGameObject(obj);
+        GameObject clone;
 
         if (parent != null)
         {
             Transform parentTrans = GetTransform(parent);
-            go = GameObject.Instantiate<GameObject>(objTrans, Vector3.zero, Quaternion.identity, parentTrans);
+            clone = GameObject.Instantiate<GameObject>(item, Vector3.zero, Quaternion.identity, parentTrans);
         }
         else
         {
-           go = GameObject.Instantiate<GameObject>(objTrans, Vector3.zero, Quaternion.identity);
+            clone = GameObject.Instantiate<GameObject>(item, Vector3.zero, Quaternion.identity);
         }
 
-        return go;
+        clone.name = name;
+
+        return clone;
+    }
+
+    public static void SetActive(UnityEngine.Object obj, bool isActive = false)
+    {
+        GameObject item = GetGameObject(obj);
+        item.SetActive(isActive);
+    }
+
+    public static void SetActive(UnityEngine.Object obj, string childPath, bool isActive = false)
+    {
+        GameObject item = GetGameObject(obj);
+
+        if (!string.IsNullOrEmpty(childPath))
+        {
+            item = item.transform.Find(childPath).gameObject;
+        }
+
+        item.SetActive(isActive);
     }
 }

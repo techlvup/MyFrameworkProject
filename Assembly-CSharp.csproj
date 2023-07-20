@@ -85,6 +85,7 @@
      <Compile Include="Assets\Scripts\ReflectUtil\LuaCallCS_Animation.cs" />
      <Compile Include="Assets\Scripts\ReflectUtil\LuaCallCS_Component.cs" />
      <Compile Include="Assets\Scripts\ReflectUtil\LuaCallCS_ConfigData.cs" />
+     <Compile Include="Assets\Scripts\ReflectUtil\LuaCallCS_Net.cs" />
      <Compile Include="Assets\Scripts\ReflectUtil\PerfectButton.cs" />
      <Compile Include="Assets\Scripts\Tool\CircleImage.cs" />
      <Compile Include="Assets\Scripts\Tool\CircleRawImage.cs" />
@@ -94,6 +95,8 @@
      <Compile Include="Assets\Scripts\Workflow\HotUpdate.cs" />
      <Compile Include="Assets\Scripts\Workflow\Launcher.cs" />
      <Compile Include="Assets\Scripts\Workflow\LuaManager.cs" />
+     <Compile Include="Assets\Scripts\Workflow\MessageNetManager.cs" />
+     <Compile Include="Assets\Scripts\Workflow\PrefabInstance.cs" />
      <Compile Include="Assets\Source\Generate\DelegateFactory.cs" />
      <Compile Include="Assets\Source\Generate\DG_Tweening_EaseWrap.cs" />
      <Compile Include="Assets\Source\Generate\DG_Tweening_LoopTypeWrap.cs" />
@@ -105,6 +108,7 @@
      <Compile Include="Assets\Source\Generate\LuaInterface_LuaInjectionStationWrap.cs" />
      <Compile Include="Assets\Source\Generate\LuaProfilerWrap.cs" />
      <Compile Include="Assets\Source\Generate\PerfectButtonWrap.cs" />
+     <Compile Include="Assets\Source\Generate\PrefabInstanceWrap.cs" />
      <Compile Include="Assets\Source\Generate\UnityEngine_AnimationBlendModeWrap.cs" />
      <Compile Include="Assets\Source\Generate\UnityEngine_AnimationClipWrap.cs" />
      <Compile Include="Assets\Source\Generate\UnityEngine_AnimationStateWrap.cs" />

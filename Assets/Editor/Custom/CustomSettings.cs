@@ -178,6 +178,7 @@ public static class CustomSettings
         _GT(typeof(Ease)),
         _GT(typeof(LoopType)),
         _GT(typeof(PathType)),
+        _GT(typeof(PrefabInstance)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

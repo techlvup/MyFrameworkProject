@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using LuaInterface;
 
+
+
 public static partial class LuaCallCS
 {
     public static void AddClickListener(UnityEngine.Object obj, LuaFunction luaFunc)
@@ -259,39 +261,55 @@ public static partial class LuaCallCS
         {
             Image image = trans.GetComponent<Image>();
 
-            Sprite sprite = null;
-
             string[] spriteInfo = spritePath.Split('/');
 
             if (spriteInfo[0] == spriteInfo[1])
             {
-                sprite = Resources.Load<Sprite>("Png/" + spriteInfo[1]);
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas", spriteInfo[0] + ".png", (asset) => {
+                    Texture2D atlas = asset as Texture2D;
+
+                    Sprite sprite = Sprite.Create(atlas, new Rect(0, 0, atlas.width, atlas.height), new Vector2(0.5f, 0.5f));
+
+                    if (sprite != null)
+                    {
+                        image.sprite = sprite;
+                    }
+
+                    if (isSetNativeSize)
+                    {
+                        SetSpriteImageNativeSize(image);
+                    }
+                });
+
                 image.material = null;
             }
             else if (GetTextureRectByAtlasName(spriteInfo[0], spriteInfo[1], out float[] rect))
             {
-                Texture2D atlas = Resources.Load<Texture2D>("Atlas/" + spriteInfo[0] + "/" + spriteInfo[0]);
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas", spriteInfo[0] + ".png", (asset) => {
+                    Texture2D atlas = asset as Texture2D;
 
-                float x = rect[0] * atlas.width;
-                float y = rect[1] * atlas.height;
-                float width = rect[2] * atlas.width;
-                float height = rect[3] * atlas.height;
+                    float x = rect[0] * atlas.width;
+                    float y = rect[1] * atlas.height;
+                    float width = rect[2] * atlas.width;
+                    float height = rect[3] * atlas.height;
 
-                sprite = Sprite.Create(atlas, new Rect(x, y, width, height), new Vector2(0.5f, 0.5f));
+                    Sprite sprite = Sprite.Create(atlas, new Rect(x, y, width, height), new Vector2(0.5f, 0.5f));
 
-                Material material = Resources.Load<Material>("Atlas/" + spriteInfo[0] + "/" + spriteInfo[0] + "Material");
+                    if (sprite != null)
+                    {
+                        image.sprite = sprite;
+                    }
 
-                image.material = material;
-            }
+                    if (isSetNativeSize)
+                    {
+                        SetSpriteImageNativeSize(image);
+                    }
+                });
 
-            if (sprite != null)
-            {
-                image.sprite = sprite;
-            }
-
-            if (isSetNativeSize)
-            {
-                SetSpriteImageNativeSize(image);
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + "material.mat", spriteInfo[0] + "Material.mat", (asset) => {
+                    Material material = asset as Material;
+                    image.material = material;
+                });
             }
         }
     }
@@ -319,39 +337,53 @@ public static partial class LuaCallCS
         {
             RawImage rawImage = trans.GetComponent<RawImage>();
 
-            Sprite sprite = null;
-
             string[] spriteInfo = texturePath.Split('/');
 
             if (spriteInfo[0] == spriteInfo[1])
             {
-                sprite = Resources.Load<Sprite>("Png/" + spriteInfo[1]);
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas", spriteInfo[0] + ".png", (asset) => {
+                    Texture2D texture = asset as Texture2D;
+
+                    if (texture != null)
+                    {
+                        rawImage.texture = texture;
+                    }
+
+                    if (isSetNativeSize)
+                    {
+                        SetTextureRawImageNativeSize(rawImage);
+                    }
+                });
+
                 rawImage.material = null;
             }
             else if (GetTextureRectByAtlasName(spriteInfo[0], spriteInfo[1], out float[] rect))
             {
-                Texture2D atlas = Resources.Load<Texture2D>("Atlas/" + spriteInfo[0] + "/" + spriteInfo[0]);
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas", spriteInfo[0] + ".png", (asset) => {
+                    Texture2D atlas = asset as Texture2D;
 
-                float x = rect[0] * atlas.width;
-                float y = rect[1] * atlas.height;
-                float width = rect[2] * atlas.width;
-                float height = rect[3] * atlas.height;
+                    float x = rect[0] * atlas.width;
+                    float y = rect[1] * atlas.height;
+                    float width = rect[2] * atlas.width;
+                    float height = rect[3] * atlas.height;
 
-                sprite = Sprite.Create(atlas, new Rect(x, y, width, height), new Vector2(0.5f, 0.5f));
+                    Sprite sprite = Sprite.Create(atlas, new Rect(x, y, width, height), new Vector2(0.5f, 0.5f));
 
-                Material material = Resources.Load<Material>("Atlas/" + spriteInfo[0] + "/" + spriteInfo[0] + "Material");
+                    if (sprite != null)
+                    {
+                        rawImage.texture = sprite.texture;
+                    }
 
-                rawImage.material = material;
-            }
+                    if (isSetNativeSize)
+                    {
+                        SetTextureRawImageNativeSize(rawImage);
+                    }
+                });
 
-            if (sprite != null)
-            {
-                rawImage.texture = sprite.texture;
-            }
-
-            if (isSetNativeSize)
-            {
-                SetTextureRawImageNativeSize(rawImage);
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + "material.mat", spriteInfo[0] + "Material.mat", (asset) => {
+                    Material material = asset as Material;
+                    rawImage.material = material;
+                });
             }
         }
     }
