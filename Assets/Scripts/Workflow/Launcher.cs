@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using UnityEngine;
-
-
+﻿using UnityEngine;
+using LuaInterface;
+using System;
+using System.Collections;
 
 public delegate void LoadAssetBundleCallBack(object assetBundleObj);
+
 public class Launcher : MonoBehaviour
 {
     private HotUpdate m_hotUpdate = null;//负责热更新流程的脚本
@@ -65,5 +66,71 @@ public class Launcher : MonoBehaviour
         yield return assetRequest;
 
         callBack(assetRequest.asset);
+    }
+
+    public IEnumerator PlayAnimationSequence(UnityEngine.Object obj, string childPath = "", string animName = "", LuaFunction callBack = null)
+    {
+        if (!string.IsNullOrEmpty(animName))
+        {
+            Transform trans = LuaCallCS.GetTransform(obj);
+
+            if (trans != null)
+            {
+                if (!string.IsNullOrEmpty(childPath))
+                {
+                    trans = trans.Find(childPath);
+                }
+
+                if (trans != null)
+                {
+                    Animation animation = trans.GetComponent<Animation>();
+
+                    if (animation != null)
+                    {
+                        animation.Play(animName);
+
+                        yield return new WaitWhile(() => animation.isPlaying);
+
+                        if (callBack != null)
+                        {
+                            callBack.Call();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public IEnumerator PlayAnimationSequence(UnityEngine.Object obj, string childPath = "", string animName = "", Action callBack = null)
+    {
+        if (!string.IsNullOrEmpty(animName))
+        {
+            Transform trans = LuaCallCS.GetTransform(obj);
+
+            if (trans != null)
+            {
+                if (!string.IsNullOrEmpty(childPath))
+                {
+                    trans = trans.Find(childPath);
+                }
+
+                if (trans != null)
+                {
+                    Animation animation = trans.GetComponent<Animation>();
+
+                    if (animation != null)
+                    {
+                        animation.Play(animName);
+
+                        yield return new WaitWhile(() => animation.isPlaying);
+
+                        if (callBack != null)
+                        {
+                            callBack();
+                        }
+                    }
+                }
+            }
+        }
     }
 }

@@ -22,6 +22,9 @@ public class LuaCallCSWrap
 		L.RegFunction("PlayAlphaAnimation", PlayAlphaAnimation);
 		L.RegFunction("PlayCurveAnimation", PlayCurveAnimation);
 		L.RegFunction("PlaySequentialAnimation", PlaySequentialAnimation);
+		L.RegFunction("PlayAnimation", PlayAnimation);
+		L.RegFunction("StopAnimation", StopAnimation);
+		L.RegFunction("PlayAnimationSequence", PlayAnimationSequence);
 		L.RegFunction("AddClickListener", AddClickListener);
 		L.RegFunction("ReleaseClickListener", ReleaseClickListener);
 		L.RegFunction("AddDownListener", AddDownListener);
@@ -961,22 +964,144 @@ public class LuaCallCSWrap
 	{
 		try
 		{
+			ToLua.CheckArgsCount(L, 1);
+			LuaTable arg0 = ToLua.CheckLuaTable(L, 1);
+			LuaCallCS.PlaySequentialAnimation(arg0);
+			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PlayAnimation(IntPtr L)
+	{
+		try
+		{
 			int count = LuaDLL.lua_gettop(L);
 
-			if (count == 0)
+			if (count == 1)
 			{
-				LuaCallCS.PlaySequentialAnimation();
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				LuaCallCS.PlayAnimation(arg0);
 				return 0;
 			}
-			else if (count == 1)
+			else if (count == 2)
 			{
-				LuaTable arg0 = ToLua.CheckLuaTable(L, 1);
-				LuaCallCS.PlaySequentialAnimation(arg0);
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaCallCS.PlayAnimation(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				string arg2 = ToLua.CheckString(L, 3);
+				LuaCallCS.PlayAnimation(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				string arg2 = ToLua.CheckString(L, 3);
+				float arg3 = (float)LuaDLL.luaL_checknumber(L, 4);
+				LuaCallCS.PlayAnimation(arg0, arg1, arg2, arg3);
 				return 0;
 			}
 			else
 			{
-				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.PlaySequentialAnimation");
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.PlayAnimation");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int StopAnimation(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				LuaCallCS.StopAnimation(arg0);
+				return 0;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaCallCS.StopAnimation(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				string arg2 = ToLua.CheckString(L, 3);
+				LuaCallCS.StopAnimation(arg0, arg1, arg2);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.StopAnimation");
+			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int PlayAnimationSequence(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				LuaCallCS.PlayAnimationSequence(arg0);
+				return 0;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaCallCS.PlayAnimationSequence(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				string arg2 = ToLua.CheckString(L, 3);
+				LuaCallCS.PlayAnimationSequence(arg0, arg1, arg2);
+				return 0;
+			}
+			else if (count == 4)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				string arg2 = ToLua.CheckString(L, 3);
+				LuaFunction arg3 = ToLua.CheckLuaFunction(L, 4);
+				LuaCallCS.PlayAnimationSequence(arg0, arg1, arg2, arg3);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.PlayAnimationSequence");
 			}
 		}
 		catch (Exception e)

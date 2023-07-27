@@ -328,18 +328,88 @@ public static partial class LuaCallCS
         return tweener;
     }
 
-    public static void PlaySequentialAnimation(LuaTable tweenerTable = null)
+    public static void PlaySequentialAnimation(LuaTable tweenerTable)
     {
-        if(tweenerTable == null)
-        {
-            return;
-        }
-
         Sequence sequence = DOTween.Sequence();
 
         for (int i = 0; i < tweenerTable.Length; i++)
         {
             sequence.Append((Tweener)tweenerTable[i + 1]);
         }
+    }
+
+    public static void PlayAnimation(UnityEngine.Object obj, string childPath = "", string animName = "", float time = 0)
+    {
+        if (string.IsNullOrEmpty(animName))
+        {
+            return;
+        }
+
+        Transform trans = GetTransform(obj);
+
+        if (trans == null)
+        {
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(childPath))
+        {
+            trans = trans.Find(childPath);
+        }
+
+        if (trans == null)
+        {
+            return;
+        }
+
+        Animation animation = trans.GetComponent<Animation>();
+
+        if (animation != null)
+        {
+            if(animation.Play(animName) && time > 0)
+            {
+                AnimationState animationState = animation[animName];
+                animationState.time = time;
+                animation.Sample();
+                animation.Stop();
+            }
+        }
+    }
+
+    public static void StopAnimation(UnityEngine.Object obj, string childPath = "", string animName = "")
+    {
+        if (string.IsNullOrEmpty(animName))
+        {
+            return;
+        }
+
+        Transform trans = GetTransform(obj);
+
+        if (trans == null)
+        {
+            return;
+        }
+
+        if (!string.IsNullOrEmpty(childPath))
+        {
+            trans = trans.Find(childPath);
+        }
+
+        if (trans == null)
+        {
+            return;
+        }
+
+        Animation animation = trans.GetComponent<Animation>();
+
+        if (animation != null)
+        {
+            animation.Stop(animName);
+        }
+    }
+
+    public static void PlayAnimationSequence(UnityEngine.Object obj, string childPath = "", string animName = "", LuaFunction callBack = null)
+    {
+        Launcher.Instance.PlayAnimationSequence(obj, childPath, animName, callBack);
     }
 }
