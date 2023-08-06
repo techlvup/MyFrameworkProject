@@ -71,6 +71,7 @@ public static partial class LuaCallCS
         if (LuaManager.m_luaClassList.ContainsKey(prefabName))
         {
             GameObject.Destroy((GameObject)LuaManager.m_luaClassList[prefabName]["gameObject"]);
+            LuaManager.m_luaClassList.Remove(prefabName);
         }
     }
 
