@@ -4,7 +4,6 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.IO.Compression;
-using Zstandard.Net;
 using System.Security.Cryptography;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -235,7 +234,7 @@ public static partial class LuaCallCS
 
         using (MemoryStream compressMemoryStream = new MemoryStream())
         {
-            using (ZstandardStream compressionStream = new ZstandardStream(compressMemoryStream, CompressionMode.Compress))
+            using (GZipStream compressionStream = new GZipStream(compressMemoryStream, CompressionMode.Compress))
             {
                 compressionStream.Write(inputBytes, 0, inputBytes.Length);
             }
@@ -252,7 +251,7 @@ public static partial class LuaCallCS
 
         using (MemoryStream compressedMemoryStream = new MemoryStream(inputBytes))
         {
-            using (ZstandardStream compressionStream = new ZstandardStream(compressedMemoryStream, CompressionMode.Decompress))
+            using (GZipStream compressionStream = new GZipStream(compressedMemoryStream, CompressionMode.Decompress))
             {
                 using (MemoryStream decompressedMemoryStream = new MemoryStream())
                 {
@@ -478,7 +477,7 @@ public static partial class LuaCallCS
 
         Dictionary<string, float[]> textureRect = GetFixedDecryptionDeviceDataByFileName<Dictionary<string, float[]>>(path);
 
-        if(textureRect.ContainsKey(textureName))
+        if (textureRect.ContainsKey(textureName))
         {
             rect = textureRect[textureName];
             return true;

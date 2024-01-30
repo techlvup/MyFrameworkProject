@@ -519,12 +519,6 @@
  <Reference Include="Debugger">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/ToLua/Debugger.dll</HintPath>
  </Reference>
- <Reference Include="System.Buffers">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/ZstdCompress/System.Buffers.dll</HintPath>
- </Reference>
- <Reference Include="Zstandard.Net">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/ZstdCompress/Zstandard.Net.dll</HintPath>
- </Reference>
  <Reference Include="Unity.Analytics.StandardEvents">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Library/PackageCache/com.unity.analytics@3.2.3/AnalyticsStandardEvents/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>

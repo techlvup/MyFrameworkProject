@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-F:/UnityProjects/sss.apk
+C:/Users/86155/Desktop/sss.apk
 SceneListBegin?
 Assets/Scene/Start.unity
 SceneListEnd?

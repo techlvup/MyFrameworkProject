@@ -398,12 +398,6 @@
  <Reference Include="Debugger">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/ToLua/Debugger.dll</HintPath>
  </Reference>
- <Reference Include="System.Buffers">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/ZstdCompress/System.Buffers.dll</HintPath>
- </Reference>
- <Reference Include="Zstandard.Net">
- <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/Plugins/AllPlatforms/ZstdCompress/Zstandard.Net.dll</HintPath>
- </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Library/PackageCache/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll</HintPath>
  </Reference>
