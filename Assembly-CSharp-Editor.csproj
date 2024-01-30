@@ -81,6 +81,7 @@
      <Compile Include="Assets\Editor\DragonGodTool\ExportAssetBundle\ExportAssetBundle.cs" />
      <Compile Include="Assets\Editor\DragonGodTool\ExportAssetBundle\ExportCatalogueFile.cs" />
      <Compile Include="Assets\Editor\DragonGodTool\ExportExcelTool\ExportExcelTool.cs" />
+     <Compile Include="Assets\Editor\DragonGodTool\Test\Test.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_EventObject.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaConstructor.cs" />
      <Compile Include="Assets\ToLua\Editor\Extend\ToLua_LuaInterface_LuaField.cs" />

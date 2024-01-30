@@ -18,13 +18,13 @@ public static class ExportCatalogueFile
 
 
 
-    [MenuItem("DragonGodTool/AssetBundles/更新AssetBundles目录文件/BuildCatalogueFile_Windows")]
+    [MenuItem("GodDragonTool/AssetBundles/更新AssetBundles目录文件/BuildCatalogueFile_Windows")]
     public static void BuildCatalogueFile_Windows()
     {
         CreeateFiles(m_catalogueFilePath_Windows);
     }
 
-    [MenuItem("DragonGodTool/AssetBundles/更新AssetBundles目录文件/BuildCatalogueFile_Android")]
+    [MenuItem("GodDragonTool/AssetBundles/更新AssetBundles目录文件/BuildCatalogueFile_Android")]
     public static void BuildCatalogueFile_Android()
     {
         CreeateFiles(m_catalogueFilePath_Android);

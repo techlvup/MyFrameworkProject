@@ -12,7 +12,7 @@ public class ExportExcelTool
 
 
 
-    [MenuItem("DragonGodTool/导出Excel表的配置数据")]
+    [MenuItem("GodDragonTool/导出Excel表的配置数据")]
     public static void ExportExcelDataToLuaTableString()
     {
         if (m_aesKeyAndIvDatas == null)

@@ -12,7 +12,7 @@ public class AtlasBuilder
 
 
 
-    [MenuItem("DragonGodTool/打包所有图集")]
+    [MenuItem("GodDragonTool/打包所有图集")]
     public static void PackSpriteAtlas()
     {
         Dictionary<string, List<Texture2D>> atlasTextures = new Dictionary<string, List<Texture2D>>();
