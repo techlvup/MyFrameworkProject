@@ -17,6 +17,7 @@ public class HotUpdate : MonoBehaviour
     private string m_catalogueFileWebURL;
     private string m_catalogueFileLocalPath;
     private GameLoadingPanel m_GameLoadingPanel;
+    private bool isUpdate = false;
 
 
 
@@ -27,7 +28,11 @@ public class HotUpdate : MonoBehaviour
         m_nowDownloadNum = 0;
         m_needDownloadNum = -1;
 
-        if (true)//写上自己的服务器根目录后屏蔽即可
+#if UNITY_EDITOR
+        isUpdate = false;
+#endif
+
+        if (!isUpdate)//写上自己的服务器根目录后屏蔽即可
         {
             m_needDownloadNum = 3;
             return;
@@ -47,9 +52,11 @@ public class HotUpdate : MonoBehaviour
     {
         if(m_GameLoadingPanel != null)
         {
-#if UNITY_EDITOR
-            m_nowDownloadNum += Time.deltaTime;
-#endif
+            if (!isUpdate)
+            {
+                m_nowDownloadNum += Time.deltaTime;
+            }
+
             m_GameLoadingPanel.SetProgressSlider(m_nowDownloadNum / m_needDownloadNum);
 
             if (m_nowDownloadNum >= m_needDownloadNum)
@@ -69,9 +76,10 @@ public class HotUpdate : MonoBehaviour
         {
             m_GameLoadingPanel = GameLoadingPanel.GetComponent<GameLoadingPanel>();
 
-#if !UNITY_EDITOR
-            StartCoroutine(DownloadCatalogueFile());
-#endif
+            if (isUpdate)
+            {
+                StartCoroutine(DownloadCatalogueFile());
+            }
         }
     }
 
