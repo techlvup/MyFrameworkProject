@@ -30,8 +30,7 @@ public class HotUpdate : MonoBehaviour
 
 #if UNITY_EDITOR
         m_needDownloadNum = 3;
-
-#elif UNITY_ANDROID
+#else
         m_catalogueFileWebURL = m_webRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
         m_catalogueFileLocalPath = m_localRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
 #endif
@@ -44,7 +43,6 @@ public class HotUpdate : MonoBehaviour
 #if UNITY_EDITOR
             m_nowDownloadNum += Time.deltaTime;
 #endif
-
             m_GameLoadingPanel.SetProgressSlider(m_nowDownloadNum / m_needDownloadNum);
 
             if (m_nowDownloadNum >= m_needDownloadNum)
