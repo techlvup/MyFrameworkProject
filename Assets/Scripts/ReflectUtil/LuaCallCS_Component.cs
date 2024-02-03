@@ -7,9 +7,9 @@ using LuaInterface;
 
 public static partial class LuaCallCS
 {
-    public static void AddClickListener(UnityEngine.Object obj, LuaFunction luaFunc)
+    public static void AddClickListener(UnityEngine.Object obj, string childPath, LuaFunction luaFunc)
     {
-        Transform trans = GetTransform(obj);
+        Transform trans = GetTransform(obj, childPath);
 
         PerfectButton btn = trans.GetComponent<PerfectButton>();
 
@@ -391,5 +391,20 @@ public static partial class LuaCallCS
     public static void SetTextureRawImageNativeSize(RawImage rawImage)
     {
         rawImage.SetNativeSize();
+    }
+
+    public static void SetText(UnityEngine.Object obj, string childPath = "", string des = "")
+    {
+        Transform trans = GetTransform(obj, childPath);
+
+        if(trans != null)
+        {
+            Text text = trans.GetComponent<Text>();
+
+            if (text != null)
+            {
+                text.text = des;
+            }
+        }
     }
 }

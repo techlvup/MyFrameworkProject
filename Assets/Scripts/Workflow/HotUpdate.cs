@@ -27,12 +27,15 @@ public class HotUpdate : MonoBehaviour
         m_nowDownloadNum = 0;
         m_needDownloadNum = -1;
 
-        m_webRootPath = "https://github.com/techlvup/MyFrameworkProject/blob/main/";
-        m_localRootPath = Application.persistentDataPath + "/";
+        if (true)//写上自己的服务器根目录后屏蔽即可
+        {
+            m_needDownloadNum = 3;
+            return;
+        }
 
-#if UNITY_EDITOR
-        m_needDownloadNum = 3;
-#else
+#if !UNITY_EDITOR
+        m_webRootPath = "https://服务器根目录/";
+        m_localRootPath = Application.persistentDataPath + "/";
         m_catalogueFileWebURL = m_webRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
         m_catalogueFileLocalPath = m_localRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
 #endif

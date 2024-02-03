@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 1481610101
+CRC: 868895859
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -38,5 +38,4 @@ AssetBundleManifest:
         Dependency_0: atlas/bg_hghg_wdtx1.atlas
     Info_10:
       Name: prefab/loginpanel.prefab
-      Dependencies:
-        Dependency_0: atlas/bg_hghg_wdtx2.atlas
+      Dependencies: {}

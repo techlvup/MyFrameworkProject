@@ -7,35 +7,42 @@ using LuaInterface;
 
 public static partial class LuaCallCS
 {
-    public static GameObject GetGameObject(UnityEngine.Object obj)
+    public static GameObject GetGameObject(UnityEngine.Object obj, string childPath = "")
     {
+        GameObject gameObject = null;
+
         if (obj is GameObject)
         {
-            var gameObject = obj as GameObject;
-            return gameObject;
+            gameObject = obj as GameObject;
         }
-
-        if (obj is Component)
+        else if (obj is Component)
         {
             var component = obj as Component;
-            return component.gameObject;
+            gameObject = component.gameObject;
         }
 
-        return null;
+        if (!string.IsNullOrEmpty(childPath))
+        {
+            Transform trans = gameObject.transform.Find(childPath);
+
+            if (trans != null)
+            {
+                return trans.gameObject;
+            }
+
+            return null;
+        }
+
+        return gameObject;
     }
 
-    public static Transform GetTransform(UnityEngine.Object obj)
+    public static Transform GetTransform(UnityEngine.Object obj, string childPath = "")
     {
-        if (obj is GameObject)
-        {
-            var gameObject = obj as GameObject;
-            return gameObject.transform;
-        }
+        var gameObject = GetGameObject(obj, childPath);
 
-        if (obj is Component)
+        if (gameObject != null)
         {
-            var component = obj as Component;
-            return component.transform;
+            return gameObject.transform;
         }
 
         return null;
@@ -222,5 +229,10 @@ public static partial class LuaCallCS
         }
 
         item.SetActive(isActive);
+    }
+
+    public static void LoginQQ()
+    {
+        SdkMsgManager.Instance.LoginQQ();
     }
 }

@@ -16,6 +16,7 @@ public class LuaCallCSWrap
 		L.RegFunction("AddComponent", AddComponent);
 		L.RegFunction("Clone", Clone);
 		L.RegFunction("SetActive", SetActive);
+		L.RegFunction("LoginQQ", LoginQQ);
 		L.RegFunction("PlayPositionAnimation", PlayPositionAnimation);
 		L.RegFunction("PlayRotationAnimation", PlayRotationAnimation);
 		L.RegFunction("PlayScaleAnimation", PlayScaleAnimation);
@@ -41,6 +42,7 @@ public class LuaCallCSWrap
 		L.RegFunction("SetSpriteImageNativeSize", SetSpriteImageNativeSize);
 		L.RegFunction("SetTextureRawImage", SetTextureRawImage);
 		L.RegFunction("SetTextureRawImageNativeSize", SetTextureRawImageNativeSize);
+		L.RegFunction("SetText", SetText);
 		L.RegFunction("LoadConfigData", LoadConfigData);
 		L.RegFunction("GetLuaTableStr", GetLuaTableStr);
 		L.RegFunction("ReadFileByteData", ReadFileByteData);
@@ -70,11 +72,27 @@ public class LuaCallCSWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
-			UnityEngine.GameObject o = LuaCallCS.GetGameObject(arg0);
-			ToLua.PushSealed(L, o);
-			return 1;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				UnityEngine.GameObject o = LuaCallCS.GetGameObject(arg0);
+				ToLua.PushSealed(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.GameObject o = LuaCallCS.GetGameObject(arg0, arg1);
+				ToLua.PushSealed(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.GetGameObject");
+			}
 		}
 		catch (Exception e)
 		{
@@ -87,11 +105,27 @@ public class LuaCallCSWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 1);
-			UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
-			UnityEngine.Transform o = LuaCallCS.GetTransform(arg0);
-			ToLua.Push(L, o);
-			return 1;
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				UnityEngine.Transform o = LuaCallCS.GetTransform(arg0);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				UnityEngine.Transform o = LuaCallCS.GetTransform(arg0, arg1);
+				ToLua.Push(L, o);
+				return 1;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.GetTransform");
+			}
 		}
 		catch (Exception e)
 		{
@@ -287,6 +321,21 @@ public class LuaCallCSWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.SetActive");
 			}
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int LoginQQ(IntPtr L)
+	{
+		try
+		{
+			ToLua.CheckArgsCount(L, 0);
+			LuaCallCS.LoginQQ();
+			return 0;
 		}
 		catch (Exception e)
 		{
@@ -1115,10 +1164,11 @@ public class LuaCallCSWrap
 	{
 		try
 		{
-			ToLua.CheckArgsCount(L, 2);
+			ToLua.CheckArgsCount(L, 3);
 			UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
-			LuaFunction arg1 = ToLua.CheckLuaFunction(L, 2);
-			LuaCallCS.AddClickListener(arg0, arg1);
+			string arg1 = ToLua.CheckString(L, 2);
+			LuaFunction arg2 = ToLua.CheckLuaFunction(L, 3);
+			LuaCallCS.AddClickListener(arg0, arg1, arg2);
 			return 0;
 		}
 		catch (Exception e)
@@ -1458,6 +1508,45 @@ public class LuaCallCSWrap
 			UnityEngine.UI.RawImage arg0 = (UnityEngine.UI.RawImage)ToLua.CheckObject<UnityEngine.UI.RawImage>(L, 1);
 			LuaCallCS.SetTextureRawImageNativeSize(arg0);
 			return 0;
+		}
+		catch (Exception e)
+		{
+			return LuaDLL.toluaL_exception(L, e);
+		}
+	}
+
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static int SetText(IntPtr L)
+	{
+		try
+		{
+			int count = LuaDLL.lua_gettop(L);
+
+			if (count == 1)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				LuaCallCS.SetText(arg0);
+				return 0;
+			}
+			else if (count == 2)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				LuaCallCS.SetText(arg0, arg1);
+				return 0;
+			}
+			else if (count == 3)
+			{
+				UnityEngine.Object arg0 = (UnityEngine.Object)ToLua.CheckObject<UnityEngine.Object>(L, 1);
+				string arg1 = ToLua.CheckString(L, 2);
+				string arg2 = ToLua.CheckString(L, 3);
+				LuaCallCS.SetText(arg0, arg1, arg2);
+				return 0;
+			}
+			else
+			{
+				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.SetText");
+			}
 		}
 		catch (Exception e)
 		{
