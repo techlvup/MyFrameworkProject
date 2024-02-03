@@ -5,6 +5,8 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
+
+
 public class HotUpdate : MonoBehaviour
 {
     private Launcher m_launcher;
@@ -35,6 +37,8 @@ public class HotUpdate : MonoBehaviour
         m_catalogueFileLocalPath = m_localRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
 #endif
     }
+
+
 
     private void Update()
     {

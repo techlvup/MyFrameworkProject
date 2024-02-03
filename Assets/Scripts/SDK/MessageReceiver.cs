@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using LitJson;
 
+
+
 public class MessageReceiver : MonoBehaviour
 {
     private List<AndroidMessage> m_allMessages = new List<AndroidMessage>();
