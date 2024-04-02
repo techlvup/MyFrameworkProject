@@ -7,13 +7,17 @@ using UnityEngine;
 
 public class Test
 {
+    private static string m_rootPath = Application.streamingAssetsPath.Substring(0, Application.streamingAssetsPath.LastIndexOf("/") + 16);
+
+
+
     [MenuItem("GodDragonTool/测试")]
     public static void TestTool()
     {
-        string path1 = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("/") + 1) + "ConfigData/测试/初始内容.txt";
-        string path2 = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("/") + 1) + "ConfigData/测试/未处理的二进制存储.bin";
-        string path3 = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("/") + 1) + "ConfigData/测试/压缩的文件.bin";
-        string path4 = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("/") + 1) + "ConfigData/测试/压缩并加密的文件.bin";
+        string path1 = m_rootPath + "/ConfigData/测试/初始内容.txt";
+        string path2 = m_rootPath + "/ConfigData/测试/未处理的二进制存储.bin";
+        string path3 = m_rootPath + "/ConfigData/测试/压缩的文件.bin";
+        string path4 = m_rootPath + "/ConfigData/测试/压缩并加密的文件.bin";
 
         byte[] data;
         byte[] compressBytes;

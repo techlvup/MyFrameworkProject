@@ -22,7 +22,7 @@ function Launcher.PlayGame()
             LuaCallCS.PlayScaleAnimation(objLoginPanel, "Btn_Login", Vector3.New(8,8,8), Vector3.New(3,3,3), 1, nil, 0, -1)
             LuaCallCS.SetText(objLoginPanel, "Btn_Login/Text", "登录")
             LuaCallCS.AddClickListener(objLoginPanel, "Btn_Login", function()
-                LuaCallCS.LoginQQ()
+                SdkMsgManager.Instance:LoginQQ()
                 print("登录QQ")
             end)
         end),

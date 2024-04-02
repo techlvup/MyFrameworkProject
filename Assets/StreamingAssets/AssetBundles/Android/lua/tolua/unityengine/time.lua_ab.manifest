@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3445927476
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6b2b80996dfa9994f00baabb3966f587
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToLua/UnityEngine/Time.lua.bytes
+Dependencies: []

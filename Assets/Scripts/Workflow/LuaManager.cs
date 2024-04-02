@@ -1,21 +1,26 @@
 ﻿using LuaInterface;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
 
 
 
-public class LuaManager
+public class LuaManager : Singleton<LuaManager>
 {
-    public static LuaState m_luaState = null;//Lua的虚拟机
-    public static Dictionary<string, LuaTable> m_luaClassList;//所有预制体对应的lua脚本
+    public LuaState m_luaState = null;//Lua的虚拟机
+    public Dictionary<string, LuaTable> m_luaClassList;//所有预制体对应的lua脚本
 
 
 
-    public static void Play()
+    public void Play()
     {
         if (m_luaState != null)
         {
             return;
         }
+
+        SetLuaSearchPaths();
 
         m_luaClassList = new Dictionary<string, LuaTable>();
 
@@ -30,7 +35,7 @@ public class LuaManager
         m_luaState.DoFile("Workflow/Main.lua");//写绝对路径或者是以Lua文件夹下的文件或文件夹开头的路径
     }
 
-    public static void Stop()
+    public void Stop()
     {
         if (m_luaState != null)
         {
@@ -41,5 +46,31 @@ public class LuaManager
         {
             m_luaClassList.Clear();
         }
+    }
+
+    private void SetLuaSearchPaths()
+    {
+        // 构建可能的搜索路径
+        string assetsPath = Application.dataPath;
+        string streamingAssetsPath = Application.streamingAssetsPath + "/Lua";
+        string persistentDataPath = Application.persistentDataPath + "/Lua";
+
+        // 设置搜索路径
+        string[] searchPaths = {
+            assetsPath,
+            streamingAssetsPath,
+            persistentDataPath,
+        };
+
+        // 设置Lua虚拟机的package.path
+        string luaSearchPath = string.Join(";", searchPaths) + ";" + Environment.GetEnvironmentVariable("LUA_PATH");
+        Environment.SetEnvironmentVariable("LUA_PATH", luaSearchPath);
+
+        // 设置Lua虚拟机的package.cpath（如果需要的话）
+        // string cLuaSearchPath = string.Join(";", searchPaths) + ";" + Environment.GetEnvironmentVariable("LUA_CPATH");
+        // Environment.SetEnvironmentVariable("LUA_CPATH", cLuaSearchPath);
+
+        // 调用Lua执行DoFile之类的操作
+        // Lua.DoFile("example.lua");
     }
 }

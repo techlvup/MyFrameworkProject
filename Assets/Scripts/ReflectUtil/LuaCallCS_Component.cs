@@ -265,7 +265,7 @@ public static partial class LuaCallCS
 
             if (spriteInfo[0] == spriteInfo[1])
             {
-                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas", spriteInfo[0] + ".png", (asset) => {
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas_ab", spriteInfo[0] + ".png", (asset) => {
                     Texture2D atlas = asset as Texture2D;
 
                     Sprite sprite = Sprite.Create(atlas, new Rect(0, 0, atlas.width, atlas.height), new Vector2(0.5f, 0.5f));
@@ -285,7 +285,7 @@ public static partial class LuaCallCS
             }
             else if (GetTextureRectByAtlasName(spriteInfo[0], spriteInfo[1], out float[] rect))
             {
-                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas", spriteInfo[0] + ".png", (asset) => {
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas_ab", spriteInfo[0] + ".png", (asset) => {
                     Texture2D atlas = asset as Texture2D;
 
                     float x = rect[0] * atlas.width;
@@ -306,7 +306,7 @@ public static partial class LuaCallCS
                     }
                 });
 
-                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + "material.mat", spriteInfo[0] + "Material.mat", (asset) => {
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + "material.mat_ab", spriteInfo[0] + "Material.mat_ab", (asset) => {
                     Material material = asset as Material;
                     image.material = material;
                 });
@@ -341,7 +341,7 @@ public static partial class LuaCallCS
 
             if (spriteInfo[0] == spriteInfo[1])
             {
-                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas", spriteInfo[0] + ".png", (asset) => {
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas_ab", spriteInfo[0] + ".png", (asset) => {
                     Texture2D texture = asset as Texture2D;
 
                     if (texture != null)
@@ -359,7 +359,7 @@ public static partial class LuaCallCS
             }
             else if (GetTextureRectByAtlasName(spriteInfo[0], spriteInfo[1], out float[] rect))
             {
-                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas", spriteInfo[0] + ".png", (asset) => {
+                Launcher.Instance.StartLoadAssetBundle(Launcher.Instance.m_fileRootPath + "AssetBundles/Android/atlas/" + spriteInfo[0] + ".atlas_ab", spriteInfo[0] + ".png", (asset) => {
                     Texture2D atlas = asset as Texture2D;
 
                     float x = rect[0] * atlas.width;

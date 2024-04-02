@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 227559135
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c6bcb0d27c732cb77ce5ead6850cc5aa
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToLua/socket/smtp.lua.bytes
+Dependencies: []

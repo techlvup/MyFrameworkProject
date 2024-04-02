@@ -8,22 +8,22 @@ using LuaInterface;
 
 
 
-public class MessageNetManager
+public class MessageNetManager : Singleton<MessageNetManager>
 {
-    private static string ipv4Str = "192.168.0.0";//服务器的ipv4地址
-    private static int portInt = 2000;//服务器的端口号
-    private static Socket clientSocket;//客户端的Socket对象
-    private static IPEndPoint point;//服务器的端口对象
-    private static byte[] msgDataByte;//数据的字节数组
-    private static bool socketState = false;//客户端Socket的状态
-    private static Dictionary<string, List<LuaFunction>> messageCallBacks = new Dictionary<string, List<LuaFunction>>();
+    private string ipv4Str = "192.168.1.4";//服务器的ipv4地址
+    private int portInt = 2000;//服务器的端口号
+    private Socket clientSocket;//客户端的Socket对象
+    private IPEndPoint point;//服务器的端口对象
+    private byte[] msgDataByte;//数据的字节数组
+    private bool socketState = false;//客户端Socket的状态
+    private Dictionary<string, List<LuaFunction>> messageCallBacks = new Dictionary<string, List<LuaFunction>>();
 
 
 
     /// <summary>
     /// 启动客户端并连接服务器
     /// </summary>
-    public static void Play()
+    public void Play()
     {
         clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
@@ -44,7 +44,7 @@ public class MessageNetManager
     /// <summary>
     /// 客户端断开连接
     /// </summary>
-    public static void Stop()
+    public void Stop()
     {
         if (socketState)
         {
@@ -60,7 +60,7 @@ public class MessageNetManager
     /// 连接服务器的回调函数
     /// </summary>
     /// <param name="result"></param>
-    private static void HandlerConnect(IAsyncResult result)
+    private void HandlerConnect(IAsyncResult result)
     {
         if (clientSocket.Connected)
         {
@@ -81,7 +81,7 @@ public class MessageNetManager
     /// 接收到服务器数据的回调函数
     /// </summary>
     /// <param name="result"></param>
-    private static void HandlerReceive(IAsyncResult result)
+    private void HandlerReceive(IAsyncResult result)
     {
         //接收到的数据长度
         int count = clientSocket.EndReceive(result);
@@ -101,7 +101,7 @@ public class MessageNetManager
 
             if (messageCallBacks.ContainsKey(strings[0]) && messageCallBacks[strings[0]].Count > 0)
             {
-                LuaTable luaTable = LuaManager.m_luaState.DoString<LuaTable>(strings[1]);
+                LuaTable luaTable = LuaManager.Instance.m_luaState.DoString<LuaTable>(strings[1]);
 
                 foreach (LuaFunction luaFunction in messageCallBacks[strings[0]])
                 {
@@ -123,7 +123,7 @@ public class MessageNetManager
     /// 发送数据到服务器端
     /// </summary>
     /// <param name="text"></param>
-    public static void Send(string text)
+    public void Send(string text)
     {
         if (socketState == false)
         {
@@ -147,14 +147,14 @@ public class MessageNetManager
     /// 数据成功发送到服务器之后的回调函数
     /// </summary>
     /// <param name="result"></param>
-    private static void HandlerSend(IAsyncResult result)
+    private void HandlerSend(IAsyncResult result)
     {
         //发送的数据量
         int count = clientSocket.EndSend(result);
         Debug.Log("客户端数据发送成功!长度为:" + count);
     }
 
-    public static void BindReceiveMessage(string messageName, LuaFunction luaFunction)
+    public void BindReceiveMessage(string messageName, LuaFunction luaFunction)
     {
         if (!messageCallBacks.ContainsKey(messageName))
         {
@@ -167,7 +167,7 @@ public class MessageNetManager
         }
     }
 
-    public static void UnbindReceiveMessage(string messageName, LuaFunction luaFunction)
+    public void UnbindReceiveMessage(string messageName, LuaFunction luaFunction)
     {
         if (messageCallBacks.ContainsKey(messageName) && messageCallBacks[messageName].Contains(luaFunction))
         {

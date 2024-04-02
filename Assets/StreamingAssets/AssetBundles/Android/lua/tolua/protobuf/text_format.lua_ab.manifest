@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1710241392
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 46f9686fd6717ef43f203b1b24c3bcb2
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToLua/protobuf/text_format.lua.bytes
+Dependencies: []

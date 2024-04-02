@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3474718208
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6680acb290e66860f21040439e5ae0cd
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToLua/jit/dis_arm.lua.bytes
+Dependencies: []

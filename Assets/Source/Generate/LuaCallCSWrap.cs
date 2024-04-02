@@ -16,7 +16,6 @@ public class LuaCallCSWrap
 		L.RegFunction("AddComponent", AddComponent);
 		L.RegFunction("Clone", Clone);
 		L.RegFunction("SetActive", SetActive);
-		L.RegFunction("LoginQQ", LoginQQ);
 		L.RegFunction("PlayPositionAnimation", PlayPositionAnimation);
 		L.RegFunction("PlayRotationAnimation", PlayRotationAnimation);
 		L.RegFunction("PlayScaleAnimation", PlayScaleAnimation);
@@ -321,21 +320,6 @@ public class LuaCallCSWrap
 			{
 				return LuaDLL.luaL_throw(L, "invalid arguments to method: LuaCallCS.SetActive");
 			}
-		}
-		catch (Exception e)
-		{
-			return LuaDLL.toluaL_exception(L, e);
-		}
-	}
-
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static int LoginQQ(IntPtr L)
-	{
-		try
-		{
-			ToLua.CheckArgsCount(L, 0);
-			LuaCallCS.LoginQQ();
-			return 0;
 		}
 		catch (Exception e)
 		{

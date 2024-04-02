@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1206830479
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 8c3920c52ca487d03980d7cd30d473b9
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToLua/UnityEngine/Profiler.lua.bytes
+Dependencies: []

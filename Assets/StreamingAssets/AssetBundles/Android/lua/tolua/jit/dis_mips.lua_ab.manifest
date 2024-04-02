@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 4226783181
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a8e76af46f8de4bc76d1b3da6e5ee09a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToLua/jit/dis_mips.lua.bytes
+Dependencies: []

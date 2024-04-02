@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 669488835
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 3b36ef00343724168b68c3684e07b568
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToolManager/ConfigDataManager.lua.bytes
+Dependencies: []

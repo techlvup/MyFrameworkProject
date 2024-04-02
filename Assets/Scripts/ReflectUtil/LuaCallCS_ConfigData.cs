@@ -11,7 +11,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public static partial class LuaCallCS
 {
-    public static string m_configPath = Application.dataPath.Substring(0, Application.dataPath.LastIndexOf("/") + 1) + "ConfigData";
+    public static string m_configPath = Application.streamingAssetsPath.Substring(0, Application.streamingAssetsPath.LastIndexOf("/") + 16) + "/ConfigData";
 
 
 
@@ -84,7 +84,7 @@ public static partial class LuaCallCS
                     using (FileStream fileStream = file.Open(FileMode.Open, FileAccess.ReadWrite, FileShare.None))
                     {
                         string luaTableStr = GetLuaTableStr(fileStream, configName, id);
-                        luaTable = LuaManager.m_luaState.DoString<LuaTable>(luaTableStr);
+                        luaTable = LuaManager.Instance.m_luaState.DoString<LuaTable>(luaTableStr);
                     }
 
                     return luaTable;
@@ -457,7 +457,7 @@ public static partial class LuaCallCS
 
                 content.Append("}\r\n\nreturn data");
 
-                result = LuaManager.m_luaState.DoString<LuaTable>(content.ToString());
+                result = LuaManager.Instance.m_luaState.DoString<LuaTable>(content.ToString());
             }
         }
 

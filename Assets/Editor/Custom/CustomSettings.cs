@@ -179,6 +179,7 @@ public static class CustomSettings
         _GT(typeof(LoopType)),
         _GT(typeof(PathType)),
         _GT(typeof(PrefabInstance)),
+        _GT(typeof(SdkMsgManager)),
     };
 
     public static List<Type> dynamicList = new List<Type>()

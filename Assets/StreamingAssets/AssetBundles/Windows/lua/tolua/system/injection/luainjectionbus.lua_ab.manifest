@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 322792579
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 772a70b9f65c35d1a7246cb0ca12ba4c
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToLua/System/Injection/LuaInjectionBus.lua.bytes
+Dependencies: []

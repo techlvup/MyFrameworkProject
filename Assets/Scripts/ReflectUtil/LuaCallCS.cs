@@ -55,15 +55,15 @@ public static partial class LuaCallCS
         int startIndex = prefabPath.LastIndexOf("/") + 1;
         string prefabName = prefabPath.Substring(startIndex, prefabPath.Length - startIndex);
 
-        if (LuaManager.m_luaClassList.ContainsKey(prefabName))
+        if (LuaManager.Instance.m_luaClassList.ContainsKey(prefabName))
         {
-            luaClass = LuaManager.m_luaClassList[prefabName];
+            luaClass = LuaManager.Instance.m_luaClassList[prefabName];
         }
         else
         {
-            luaClass = LuaManager.m_luaState.DoFile<LuaTable>(luaPath);
+            luaClass = LuaManager.Instance.m_luaState.DoFile<LuaTable>(luaPath);
 
-            LuaManager.m_luaClassList[prefabName] = luaClass;
+            LuaManager.Instance.m_luaClassList[prefabName] = luaClass;
 
             GameObject obj = CreateGameObject(prefabPath, prefabName);
 
@@ -75,10 +75,10 @@ public static partial class LuaCallCS
 
     public static void ClosePrefabPanel(string prefabName)
     {
-        if (LuaManager.m_luaClassList.ContainsKey(prefabName))
+        if (LuaManager.Instance.m_luaClassList.ContainsKey(prefabName))
         {
-            GameObject.Destroy((GameObject)LuaManager.m_luaClassList[prefabName]["gameObject"]);
-            LuaManager.m_luaClassList.Remove(prefabName);
+            GameObject.Destroy((GameObject)LuaManager.Instance.m_luaClassList[prefabName]["gameObject"]);
+            LuaManager.Instance.m_luaClassList.Remove(prefabName);
         }
     }
 
@@ -229,10 +229,5 @@ public static partial class LuaCallCS
         }
 
         item.SetActive(isActive);
-    }
-
-    public static void LoginQQ()
-    {
-        SdkMsgManager.Instance.LoginQQ();
     }
 }

@@ -184,7 +184,7 @@ public class AtlasBuilder
         atlasImporter.spritesheet = spriteMetaDatas.ToArray();
 
         atlasImporter.assetBundleName = "atlas/" + atlasName;
-        atlasImporter.assetBundleVariant = "atlas";
+        atlasImporter.assetBundleVariant = "atlas_ab";
 
         EditorUtility.SetDirty(atlasImporter);
 
@@ -209,7 +209,7 @@ public class AtlasBuilder
         AssetImporter materialImporter = AssetImporter.GetAtPath(assetsMaterialPath);
 
         materialImporter.assetBundleName = "atlas/" + atlasName + "Material";
-        materialImporter.assetBundleVariant = "mat";
+        materialImporter.assetBundleVariant = "mat_ab";
 
         EditorUtility.SetDirty(materialImporter);
 

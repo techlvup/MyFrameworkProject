@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 2841440662
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ead8b6426fc7d5ae868353a43d63c2d8
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToLua/jit/zone.lua.bytes
+Dependencies: []

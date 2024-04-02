@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 4137837630
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: ec9f9af27adcd4b422acf94e65b34092
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: ea5a42e0fd8ea905efa7aa926a3b8944
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Atlas/Atlas02/Atlas02.png
+Dependencies: []

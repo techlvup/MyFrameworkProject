@@ -4,49 +4,86 @@ using System;
 using System.Collections;
 
 public delegate void LoadAssetBundleCallBack(object assetBundleObj);
+public delegate Coroutine IEnumeratorStartCoroutine(IEnumerator routine);
+public delegate Coroutine StringStartCoroutine(string methodName);
 
 public class Launcher : MonoBehaviour
 {
-    private HotUpdate m_hotUpdate = null;//负责热更新流程的脚本
     public static Launcher Instance = null;
     public string m_fileRootPath = "";
+    private GameLoadingPanel m_GameLoadingPanel = null;
+    public bool isUpdate = false;//写上自己的服务器根目录后默认true即可
 
 
 
     private void Awake()
     {
-        m_hotUpdate = gameObject.GetComponent<HotUpdate>();
-        m_hotUpdate.StartHotUpdate();
+        GameObject GameLoadingPanel = LuaCallCS.CreateGameObject("UI/GameLoadingPanel", "GameLoadingPanel");
 
-#if UNITY_EDITOR
-        m_fileRootPath = Application.dataPath.Replace("Assets", "");
-#else
-        m_fileRootPath = Application.persistentDataPath + "/";
-#endif
+        if (GameLoadingPanel != null)
+        {
+            m_GameLoadingPanel = GameLoadingPanel.GetComponent<GameLoadingPanel>();
+        }
+        else
+        {
+            return;
+        }
+
+        HotUpdateManager.Instance.Init(isUpdate);
+
+        if (isUpdate)
+        {
+            m_fileRootPath = Application.persistentDataPath + "/";
+
+            StartCoroutine(HotUpdateManager.Instance.DownloadCatalogueFile(StartCoroutine, StartCoroutine));
+        }
+        else
+        {
+            m_fileRootPath = Application.streamingAssetsPath.Substring(0, Application.streamingAssetsPath.LastIndexOf("/") + 16) + "/";
+        }
 
         Instance = this;
     }
 
+    private void Update()
+    {
+        CheckUpdate();
+    }
+
     private void OnDestroy()
     {
-        LuaManager.Stop();
-
-        MessageNetManager.Stop();
+        LuaManager.Instance.Stop();
+        MessageNetManager.Instance.Stop();
     }
 
 
 
+    public void CheckUpdate()
+    {
+        if (m_GameLoadingPanel != null)
+        {
+            if (!isUpdate)
+            {
+                HotUpdateManager.Instance.m_nowDownloadNum += Time.deltaTime;
+            }
+
+            m_GameLoadingPanel.SetProgressSlider(HotUpdateManager.Instance.m_nowDownloadNum / HotUpdateManager.Instance.m_needDownloadNum);
+
+            if (HotUpdateManager.Instance.m_nowDownloadNum >= HotUpdateManager.Instance.m_needDownloadNum)
+            {
+                PlayGame();
+            }
+        }
+    }
+
     public void PlayGame()
     {
-        if (m_hotUpdate != null)
-        {
-            Destroy(m_hotUpdate);
-            m_hotUpdate = null;
-        }
-
-        LuaManager.Play();
-
-        MessageNetManager.Play();
+        LuaManager.Instance.Play();
+        SdkMsgManager.Instance.Init();
+        MessageNetManager.Instance.Play();
+        Application.logMessageReceived += DebugCSErrorLuaStackTrace;
+        LuaCallCS.ClosePrefabPanel("GameLoadingPanel");
+        m_GameLoadingPanel = null;
     }
 
     public void StartLoadAssetBundle(string assetBundlePath, string assetName, LoadAssetBundleCallBack callBack)
@@ -130,6 +167,19 @@ public class Launcher : MonoBehaviour
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private void DebugCSErrorLuaStackTrace(string logString, string stackTrace, LogType logType)
+    {
+        if(logType == LogType.Exception)
+        {
+            string luaLog = LuaManager.Instance.m_luaState.GetFunction("debug.traceback").Invoke<object, object, object, string>(null, null, null);
+
+            if (!string.IsNullOrEmpty(luaLog))
+            {
+                Debug.LogError(luaLog);
             }
         }
     }

@@ -7,83 +7,39 @@ using UnityEngine.Networking;
 
 
 
-public class HotUpdate : MonoBehaviour
+public class HotUpdateManager : Singleton<HotUpdateManager>
 {
-    private Launcher m_launcher;
-    private float m_nowDownloadNum;
-    private float m_needDownloadNum;
+    public float m_nowDownloadNum;
+    public float m_needDownloadNum;
     private string m_webRootPath;
     private string m_localRootPath;
     private string m_catalogueFileWebURL;
     private string m_catalogueFileLocalPath;
-    private GameLoadingPanel m_GameLoadingPanel;
     private bool isUpdate = false;
 
 
 
-    private void Awake()
+    public void Init(bool isUpdate)
     {
-        m_launcher = gameObject.GetComponent<Launcher>();
-
         m_nowDownloadNum = 0;
         m_needDownloadNum = -1;
 
-#if UNITY_EDITOR
-        isUpdate = false;
-#endif
+        this.isUpdate = isUpdate;
 
-        if (!isUpdate)//写上自己的服务器根目录后屏蔽即可
+        if (this.isUpdate)
+        {
+            m_webRootPath = "https://服务器根目录/StremingAssets/";
+            m_localRootPath = Application.persistentDataPath + "/";
+            m_catalogueFileWebURL = m_webRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
+            m_catalogueFileLocalPath = m_localRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
+        }
+        else
         {
             m_needDownloadNum = 3;
-            return;
-        }
-
-#if !UNITY_EDITOR
-        m_webRootPath = "https://服务器根目录/";
-        m_localRootPath = Application.persistentDataPath + "/";
-        m_catalogueFileWebURL = m_webRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
-        m_catalogueFileLocalPath = m_localRootPath + "CatalogueFiles/Android/CatalogueFile.txt";
-#endif
-    }
-
-
-
-    private void Update()
-    {
-        if(m_GameLoadingPanel != null)
-        {
-            if (!isUpdate)
-            {
-                m_nowDownloadNum += Time.deltaTime;
-            }
-
-            m_GameLoadingPanel.SetProgressSlider(m_nowDownloadNum / m_needDownloadNum);
-
-            if (m_nowDownloadNum >= m_needDownloadNum)
-            {
-                m_launcher.PlayGame();
-            }
         }
     }
 
-
-
-    public void StartHotUpdate()
-    {
-        GameObject GameLoadingPanel =  LuaCallCS.CreateGameObject("UI/GameLoadingPanel", "GameLoadingPanel");
-
-        if (GameLoadingPanel != null)
-        {
-            m_GameLoadingPanel = GameLoadingPanel.GetComponent<GameLoadingPanel>();
-
-            if (isUpdate)
-            {
-                StartCoroutine(DownloadCatalogueFile());
-            }
-        }
-    }
-
-    private IEnumerator DownloadCatalogueFile()
+    public IEnumerator DownloadCatalogueFile(IEnumeratorStartCoroutine func1, StringStartCoroutine func2)
     {
         UnityWebRequest requestHandler = UnityWebRequest.Get(m_catalogueFileWebURL);//下载路径需要加上文件的后缀，没有后缀则不加
 
@@ -121,7 +77,7 @@ public class HotUpdate : MonoBehaviour
                                 {
                                     if (i % 2 == 0)
                                     {
-                                        StartCoroutine(DownloadWebFile(filePath[i]));
+                                        func1(DownloadWebFile(filePath[i]));
                                     }
                                 }
                             }
@@ -133,7 +89,7 @@ public class HotUpdate : MonoBehaviour
                         {
                             JudgeNeedDownloadFileNum(downloadCatalogueText, localCatalogueText);
 
-                            CompareLocalAndWebFile(downloadCatalogueText, localCatalogueText);
+                            CompareLocalAndWebFile(downloadCatalogueText, localCatalogueText, func2);
 
                             streamWriter.Write(downloadCatalogueText);
                         }
@@ -180,7 +136,7 @@ public class HotUpdate : MonoBehaviour
         m_needDownloadNum = needNum;
     }
 
-    private void CompareLocalAndWebFile(string downloadCatalogueText, string localCatalogueText)
+    private void CompareLocalAndWebFile(string downloadCatalogueText, string localCatalogueText, StringStartCoroutine func)
     {
         string[] webFilePath1 = downloadCatalogueText.Split('|', '\n');
         string[] localFilePath1 = localCatalogueText.Split('|', '\n');
@@ -208,7 +164,7 @@ public class HotUpdate : MonoBehaviour
         {
             if (!localFilePath2.ContainsKey(key) || (localFilePath2.ContainsKey(key) && localFilePath2[key] != webFilePath2[key]))
             {
-                StartCoroutine(key);
+                func(key);
             }
         }
     }

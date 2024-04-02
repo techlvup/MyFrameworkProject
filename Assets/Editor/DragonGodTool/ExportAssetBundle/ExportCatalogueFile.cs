@@ -2,17 +2,19 @@
 using System.Security.Cryptography;
 using System.Text;
 using System.IO;
+using UnityEngine;
 
 
 
 public static class ExportCatalogueFile
 {
-    private static string m_luaPath = "Assets/Lua";
-    private static string m_clientConfigPath = "ConfigData/Client";
-    private static string m_serverConfigPath = "ConfigData/Server";
-    private static string m_aesKeyAndIvDataPath = "ConfigData/ConfigDecryptData";
-    private static string m_catalogueFilePath_Windows = "CatalogueFiles/Windows";
-    private static string m_catalogueFilePath_Android = "CatalogueFiles/Android";
+    private static string m_rootPath = Application.streamingAssetsPath.Substring(0, Application.streamingAssetsPath.LastIndexOf("/") + 16);
+    private static string m_luaPath = Application.dataPath + "/Lua";
+    private static string m_clientConfigPath = m_rootPath + "/ConfigData/Client";
+    private static string m_serverConfigPath = m_rootPath + "/ConfigData/Server";
+    private static string m_aesKeyAndIvDataPath = m_rootPath + "/ConfigData/ConfigDecryptData";
+    private static string m_catalogueFilePath_Windows = m_rootPath + "/CatalogueFiles/Windows";
+    private static string m_catalogueFilePath_Android = m_rootPath + "/CatalogueFiles/Android";
 
     private static StringBuilder m_filesContent = null;
 

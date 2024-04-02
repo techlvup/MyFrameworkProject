@@ -112,6 +112,8 @@
      <Compile Include="Assets\Source\Generate\LuaProfilerWrap.cs" />
      <Compile Include="Assets\Source\Generate\PerfectButtonWrap.cs" />
      <Compile Include="Assets\Source\Generate\PrefabInstanceWrap.cs" />
+     <Compile Include="Assets\Source\Generate\SdkMsgManagerWrap.cs" />
+     <Compile Include="Assets\Source\Generate\Singleton_SdkMsgManagerWrap.cs" />
      <Compile Include="Assets\Source\Generate\UnityEngine_AnimationBlendModeWrap.cs" />
      <Compile Include="Assets\Source\Generate\UnityEngine_AnimationClipWrap.cs" />
      <Compile Include="Assets\Source\Generate\UnityEngine_AnimationStateWrap.cs" />
@@ -269,10 +271,12 @@
      <Compile Include="Assets\ToLua\Reflection\LuaReflection.cs" />
      <None Include="Assets\DOTween\DOTweenPro\readme.txt" />
      <None Include="Assets\DOTween\DemiLib\Core\DemiLib.xml" />
+     <None Include="Assets\StreamingAssets\CatalogueFiles\Android\CatalogueFile.txt" />
      <None Include="Assets\DOTween\DOTween\DOTween50.xml" />
-     <None Include="Assets\link.xml" />
+     <None Include="Assets\StreamingAssets\CatalogueFiles\Windows\CatalogueFile.txt" />
      <None Include="Assets\DOTween\DOTween\DOTween46.xml" />
      <None Include="Assets\DOTween\DOTween\DOTween43.xml" />
+     <None Include="Assets\StreamingAssets\ConfigData\测试\初始内容.txt" />
      <None Include="Assets\ToLua\Injection\InjectionBridgeEditorInfo.xml" />
      <None Include="Assets\ToLua\Injection\LuaInjectionSkipPaths.txt" />
      <None Include="Assets\ToLua\Injection\InjectionBlackList.txt" />

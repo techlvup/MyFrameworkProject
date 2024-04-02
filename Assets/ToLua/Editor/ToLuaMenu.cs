@@ -850,7 +850,7 @@ public static class ToLuaMenu
             Directory.Delete(path, true);
         }
 
-        path = Application.streamingAssetsPath + "/Lua";
+        path = Application.dataPath + "/Lua";
 
         if (Directory.Exists(path))
         {
@@ -1155,7 +1155,7 @@ public static class ToLuaMenu
         }
 
         BuildLuaBundle(null, "Assets/StreamingAssets/Lua");
-        Directory.Delete(Application.streamingAssetsPath + "/Lua/", true);
+        Directory.Delete(Application.dataPath + "/Lua/", true);
 #endif
         AssetDatabase.Refresh();
     }

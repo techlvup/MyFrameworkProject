@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 1999012842
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: fcc6ed8c3e0ba5c4665fc456e6df9751
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToLua/jit/dis_ppc.lua.bytes
+Dependencies: []

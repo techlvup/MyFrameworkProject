@@ -1,0 +1,21 @@
+ManifestFileVersion: 0
+CRC: 4254084496
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: a8b8913f135a1bd0bb507f3e46b5b79e
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: fe397485c3cec1106b49e9ff95e8f8a2
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Atlas/Atlas02/Atlas02Material.mat
+Dependencies:
+- F:/UnityProjects/MyFrameworkProject/MyFrameworkProject/Assets/StreamingAssets/AssetBundles/Android/atlas/atlas02.atlas_ab

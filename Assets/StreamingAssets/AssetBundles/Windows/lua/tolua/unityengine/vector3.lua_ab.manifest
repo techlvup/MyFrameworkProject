@@ -1,0 +1,16 @@
+ManifestFileVersion: 0
+CRC: 3854656750
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 6f42d9d4169d6684e58f0b442768c012
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 5ad585dd02dfb5016c0dad519eab8f49
+HashAppended: 0
+ClassTypes:
+- Class: 49
+  Script: {instanceID: 0}
+Assets:
+- Assets/Lua/ToLua/UnityEngine/Vector3.lua.bytes
+Dependencies: []

@@ -1,0 +1,254 @@
+ManifestFileVersion: 0
+CRC: 3596052787
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: atlas/bg_hghg_wdtx1.atlas
+      Dependencies: {}
+    Info_1:
+      Name: atlas/bg_hghg_wdtx2.atlas
+      Dependencies: {}
+    Info_2:
+      Name: atlas/bg_hghg_wdtx3.atlas
+      Dependencies: {}
+    Info_3:
+      Name: prefab/gameloadingpanel.prefab_ab
+      Dependencies:
+        Dependency_0: atlas/bg_hghg_wdtx1.atlas
+    Info_4:
+      Name: prefab/loginpanel.prefab_ab
+      Dependencies: {}
+    Info_5:
+      Name: atlas/atlas00.atlas_ab
+      Dependencies: {}
+    Info_6:
+      Name: atlas/atlas00material.mat_ab
+      Dependencies:
+        Dependency_0: atlas/atlas00.atlas_ab
+    Info_7:
+      Name: atlas/atlas01.atlas_ab
+      Dependencies: {}
+    Info_8:
+      Name: atlas/atlas01material.mat_ab
+      Dependencies:
+        Dependency_0: atlas/atlas01.atlas_ab
+    Info_9:
+      Name: atlas/atlas02.atlas_ab
+      Dependencies: {}
+    Info_10:
+      Name: atlas/atlas02material.mat_ab
+      Dependencies:
+        Dependency_0: atlas/atlas02.atlas_ab
+    Info_11:
+      Name: lua/tolua/cjson/util.lua_ab
+      Dependencies: {}
+    Info_12:
+      Name: lua/tolua/jit/bc.lua_ab
+      Dependencies: {}
+    Info_13:
+      Name: lua/tolua/jit/bcsave.lua_ab
+      Dependencies: {}
+    Info_14:
+      Name: lua/tolua/jit/dis_arm.lua_ab
+      Dependencies: {}
+    Info_15:
+      Name: lua/tolua/jit/dis_arm64.lua_ab
+      Dependencies: {}
+    Info_16:
+      Name: lua/tolua/jit/dis_arm64be.lua_ab
+      Dependencies: {}
+    Info_17:
+      Name: lua/tolua/jit/dis_mips.lua_ab
+      Dependencies: {}
+    Info_18:
+      Name: lua/tolua/jit/dis_mips64.lua_ab
+      Dependencies: {}
+    Info_19:
+      Name: lua/tolua/jit/dis_mips64el.lua_ab
+      Dependencies: {}
+    Info_20:
+      Name: lua/tolua/jit/dis_mipsel.lua_ab
+      Dependencies: {}
+    Info_21:
+      Name: lua/tolua/jit/dis_ppc.lua_ab
+      Dependencies: {}
+    Info_22:
+      Name: lua/tolua/jit/dis_x64.lua_ab
+      Dependencies: {}
+    Info_23:
+      Name: lua/tolua/jit/dis_x86.lua_ab
+      Dependencies: {}
+    Info_24:
+      Name: lua/tolua/jit/dump.lua_ab
+      Dependencies: {}
+    Info_25:
+      Name: lua/tolua/jit/p.lua_ab
+      Dependencies: {}
+    Info_26:
+      Name: lua/tolua/jit/v.lua_ab
+      Dependencies: {}
+    Info_27:
+      Name: lua/tolua/jit/zone.lua_ab
+      Dependencies: {}
+    Info_28:
+      Name: lua/tolua/lpeg/re.lua_ab
+      Dependencies: {}
+    Info_29:
+      Name: lua/tolua/misc/functions.lua_ab
+      Dependencies: {}
+    Info_30:
+      Name: lua/tolua/misc/strict.lua_ab
+      Dependencies: {}
+    Info_31:
+      Name: lua/tolua/misc/utf8.lua_ab
+      Dependencies: {}
+    Info_32:
+      Name: lua/tolua/protobuf/containers.lua_ab
+      Dependencies: {}
+    Info_33:
+      Name: lua/tolua/protobuf/decoder.lua_ab
+      Dependencies: {}
+    Info_34:
+      Name: lua/tolua/protobuf/descriptor.lua_ab
+      Dependencies: {}
+    Info_35:
+      Name: lua/tolua/protobuf/encoder.lua_ab
+      Dependencies: {}
+    Info_36:
+      Name: lua/tolua/protobuf/listener.lua_ab
+      Dependencies: {}
+    Info_37:
+      Name: lua/tolua/protobuf/protobuf.lua_ab
+      Dependencies: {}
+    Info_38:
+      Name: lua/tolua/protobuf/text_format.lua_ab
+      Dependencies: {}
+    Info_39:
+      Name: lua/tolua/protobuf/type_checkers.lua_ab
+      Dependencies: {}
+    Info_40:
+      Name: lua/tolua/protobuf/wire_format.lua_ab
+      Dependencies: {}
+    Info_41:
+      Name: lua/tolua/socket/ftp.lua_ab
+      Dependencies: {}
+    Info_42:
+      Name: lua/tolua/socket/headers.lua_ab
+      Dependencies: {}
+    Info_43:
+      Name: lua/tolua/socket/http.lua_ab
+      Dependencies: {}
+    Info_44:
+      Name: lua/tolua/socket/mbox.lua_ab
+      Dependencies: {}
+    Info_45:
+      Name: lua/tolua/socket/smtp.lua_ab
+      Dependencies: {}
+    Info_46:
+      Name: lua/tolua/socket/tp.lua_ab
+      Dependencies: {}
+    Info_47:
+      Name: lua/tolua/socket/url.lua_ab
+      Dependencies: {}
+    Info_48:
+      Name: lua/tolua/system/injection/injectionbridgeinfo.lua_ab
+      Dependencies: {}
+    Info_49:
+      Name: lua/tolua/system/injection/luainjectionbus.lua_ab
+      Dependencies: {}
+    Info_50:
+      Name: lua/tolua/system/injection/luainjectionstation.lua_ab
+      Dependencies: {}
+    Info_51:
+      Name: lua/tolua/system/reflection/bindingflags.lua_ab
+      Dependencies: {}
+    Info_52:
+      Name: lua/tolua/system/coroutine.lua_ab
+      Dependencies: {}
+    Info_53:
+      Name: lua/tolua/system/timer.lua_ab
+      Dependencies: {}
+    Info_54:
+      Name: lua/tolua/system/valuetype.lua_ab
+      Dependencies: {}
+    Info_55:
+      Name: lua/tolua/unityengine/bounds.lua_ab
+      Dependencies: {}
+    Info_56:
+      Name: lua/tolua/unityengine/color.lua_ab
+      Dependencies: {}
+    Info_57:
+      Name: lua/tolua/unityengine/layermask.lua_ab
+      Dependencies: {}
+    Info_58:
+      Name: lua/tolua/unityengine/mathf.lua_ab
+      Dependencies: {}
+    Info_59:
+      Name: lua/tolua/unityengine/plane.lua_ab
+      Dependencies: {}
+    Info_60:
+      Name: lua/tolua/unityengine/profiler.lua_ab
+      Dependencies: {}
+    Info_61:
+      Name: lua/tolua/unityengine/quaternion.lua_ab
+      Dependencies: {}
+    Info_62:
+      Name: lua/tolua/unityengine/ray.lua_ab
+      Dependencies: {}
+    Info_63:
+      Name: lua/tolua/unityengine/raycasthit.lua_ab
+      Dependencies: {}
+    Info_64:
+      Name: lua/tolua/unityengine/time.lua_ab
+      Dependencies: {}
+    Info_65:
+      Name: lua/tolua/unityengine/touch.lua_ab
+      Dependencies: {}
+    Info_66:
+      Name: lua/tolua/unityengine/vector2.lua_ab
+      Dependencies: {}
+    Info_67:
+      Name: lua/tolua/unityengine/vector3.lua_ab
+      Dependencies: {}
+    Info_68:
+      Name: lua/tolua/unityengine/vector4.lua_ab
+      Dependencies: {}
+    Info_69:
+      Name: lua/tolua/event.lua_ab
+      Dependencies: {}
+    Info_70:
+      Name: lua/tolua/list.lua_ab
+      Dependencies: {}
+    Info_71:
+      Name: lua/tolua/ltn12.lua_ab
+      Dependencies: {}
+    Info_72:
+      Name: lua/tolua/mime.lua_ab
+      Dependencies: {}
+    Info_73:
+      Name: lua/tolua/slot.lua_ab
+      Dependencies: {}
+    Info_74:
+      Name: lua/tolua/socket.lua_ab
+      Dependencies: {}
+    Info_75:
+      Name: lua/tolua/tolua.lua_ab
+      Dependencies: {}
+    Info_76:
+      Name: lua/tolua/typeof.lua_ab
+      Dependencies: {}
+    Info_77:
+      Name: lua/toolmanager/configdatamanager.lua_ab
+      Dependencies: {}
+    Info_78:
+      Name: lua/toolmanager/reflectutil.lua_ab
+      Dependencies: {}
+    Info_79:
+      Name: lua/workflow/launcher.lua_ab
+      Dependencies: {}
+    Info_80:
+      Name: lua/workflow/main.lua_ab
+      Dependencies: {}
+    Info_81:
+      Name: lua/workflow/prefabclass.lua_ab
+      Dependencies: {}

@@ -13,9 +13,9 @@ public class PrefabInstance : MonoBehaviour
 
     private void Awake()
     {
-        if (LuaManager.m_luaClassList.ContainsKey(gameObject.name))
+        if (LuaManager.Instance.m_luaClassList.ContainsKey(gameObject.name))
         {
-            m_luaTable = LuaManager.m_luaClassList[gameObject.name];
+            m_luaTable = LuaManager.Instance.m_luaClassList[gameObject.name];
 
             LuaFunction awake = (LuaFunction)m_luaTable["Awake"];
 
@@ -79,9 +79,9 @@ public class PrefabInstance : MonoBehaviour
             destroy.Call();
         }
 
-        if (LuaManager.m_luaClassList.ContainsKey(gameObject.name))
+        if (LuaManager.Instance.m_luaClassList.ContainsKey(gameObject.name))
         {
-            LuaManager.m_luaClassList.Remove(gameObject.name);
+            LuaManager.Instance.m_luaClassList.Remove(gameObject.name);
         }
     }
 

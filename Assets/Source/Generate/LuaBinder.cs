@@ -14,6 +14,8 @@ public static class LuaBinder
 		LuaCallCSWrap.Register(L);
 		PerfectButtonWrap.Register(L);
 		PrefabInstanceWrap.Register(L);
+		SdkMsgManagerWrap.Register(L);
+		Singleton_SdkMsgManagerWrap.Register(L);
 		L.BeginModule("LuaInterface");
 		LuaInterface_LuaInjectionStationWrap.Register(L);
 		LuaInterface_InjectTypeWrap.Register(L);
